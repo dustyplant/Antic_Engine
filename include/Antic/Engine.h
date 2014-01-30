@@ -25,14 +25,12 @@ namespace antic
 		void setStateManager( StateManager* );
 
 		SDL_Window* getWindow();
-		//SDL_Renderer* getRenderer();
 
 		SDL_Event event;
 	private:
 		StateManager* sm;
 		SDL_Window* window;
 		SDL_GLContext context;
-		//SDL_Renderer* renderer;
 	};
 }
 
