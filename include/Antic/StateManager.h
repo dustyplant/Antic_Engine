@@ -12,9 +12,9 @@ namespace antic
 	public:
 		virtual ~StateManager();
 
-		virtual bool init() = 0;
-		virtual void update() = 0;
-		virtual void render() = 0;
+		virtual bool init();
+		virtual void update();
+		virtual void render();
 
 		// Pushes the new state onto the stack, making it the active state, and 
 		// preserving the previously active state.
@@ -26,10 +26,10 @@ namespace antic
 		// Pushes and pops safely.
 		void changeState( GameState* );
 
-		//void setWindow();
+		void setWindow( SDL_Window* );
 	private:
 		std::stack<GameState*> stateStack;
-		//SDL_Window* window;
+		SDL_Window* window;
 	};
 }
 

@@ -9,6 +9,23 @@ antic::StateManager::~StateManager()
 	}
 }
 
+bool antic::StateManager::init()
+{
+	return true;
+}
+
+void antic::StateManager::update()
+{
+	if( stateStack.empty() == false )
+		stateStack.top()->update();
+}
+
+void antic::StateManager::render()
+{
+	if( stateStack.empty() == false )
+		stateStack.top()->render();	
+}
+
 void antic::StateManager::pushState( GameState* newState )
 {
 	stateStack.push( newState );
@@ -26,4 +43,9 @@ void antic::StateManager::changeState( GameState* newState )
 		stateStack.pop();
 
 	stateStack.push( newState );
+}
+
+void antic::StateManager::setWindow( SDL_Window* win )
+{
+	window = win;
 }
