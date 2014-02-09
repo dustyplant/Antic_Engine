@@ -10,7 +10,6 @@
 
 #include <Antic/Services.h>
 #include <Antic/EngineVars.h>
-
-#include <Antic/Texture.h>
+#include <Antic/Antic_Graph.h>
 
 #endif

@@ -1,19 +1,5 @@
 #include <Antic/Engine.h>
 
-std::string vertexShaderSource = "#version 330 core\n\\nlayout( location = 0 ) in vec3 vPosition;\nlayout( location = 1 ) in vec2 textureUV;\n\nout vec2 UV;\n\nvoid main()\n{\ngl_Position = vPosition;\nUV = textureUV;\n}\n";
-
-std::string fragmentShaderSource = "#version 330 core\n\
-\n\
-in vec2 UV;\n\
-out vec3 color;\n\
-\n\
-uniform sampler2D tex;\n\
-\n\
-void main()\n\
-{\n\
-	color = texture( tex, UV ).rgb;\n\
-}";
-
 antic::Engine::Engine()
 {
 	sm = nullptr;
@@ -24,7 +10,7 @@ antic::Engine::Engine()
 antic::Engine::~Engine()
 {
 	//glDeleteProgram( programID );
-	SDL_GL_DeleteContext( context );
+	//SDL_GL_DeleteContext( context );
 	close();
 }
 
@@ -43,14 +29,9 @@ void antic::Engine::close()
 
 bool antic::Engine::init( std::string title, int width, int height )
 {
+	/*
 	if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
 		return false;
-
-	//SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-	//SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
-
-	//SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-	//SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 32 );
 
 	if( window != nullptr )
 	{
@@ -65,37 +46,10 @@ bool antic::Engine::init( std::string title, int width, int height )
 		close();
 		return false;
 	}
-	context = SDL_GL_CreateContext( window );
-
-	if( glewInit() != GLEW_OK )
-		return false;
-
-	ilInit();
-
-	glEnable( GL_BLEND );
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-
-	glEnable( GL_DEPTH_TEST );
-	glDepthFunc( GL_LESS );
-
-	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-	glMatrixMode( GL_PROJECTION );
-	glLoadIdentity();
-	glOrtho( 0, width, height, 0, 1, -1 );
-	glViewport( 0, 0, width, height );
-	glMatrixMode( GL_MODELVIEW );
-
-	if( getServices().init() == false )
-		return false;
-
-	/*
-	if( getServices().getEngineVars()->loadProgramFromString( name, vertexShaderSource, fragmentShaderSource) == false )
-		return false;
-
-	
-	glUseProgram( getServices().getEngineVars()->getShader( name ) );
 	*/
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+	if( AGraph::initAGraph( title, width, height ) == false )
+		return false;
 
 	return true;
 }
@@ -115,7 +69,7 @@ void antic::Engine::render()
 	{
 		sm->render();
 	}
-	SDL_GL_SwapWindow( window );
+	AGraph::renderDone();
 }
 
 void antic::Engine::setStateManager( StateManager* newSM )
@@ -129,8 +83,9 @@ SDL_Window* antic::Engine::getWindow()
 {
 	return window;
 }
-
+/*
 antic::Services & antic::Engine::getServices()
 {
 	return services;
 }
+*/

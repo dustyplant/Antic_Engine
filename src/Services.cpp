@@ -1,3 +1,4 @@
+/*
 #include <Antic/Services.h>
 
 antic::Services::~Services()
@@ -33,3 +34,4 @@ antic::EngineVars * antic::Services::getEngineVars()
 {
 	return engineVars;
 }
+*/

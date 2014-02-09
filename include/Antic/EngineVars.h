@@ -1,3 +1,4 @@
+/*
 #ifndef ENGINEVARS_H
 #define ENGINEVARS_H
 
@@ -27,3 +28,4 @@ namespace antic
 }
 
 #endif
+*/

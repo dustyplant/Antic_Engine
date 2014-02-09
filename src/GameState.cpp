@@ -2,7 +2,7 @@
 
 antic::GameState::GameState()
 {
-	rq = new RenderQueue();
+	rq = new antic::RenderQueue();
 }
 
 antic::GameState::~GameState()

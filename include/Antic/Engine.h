@@ -2,12 +2,10 @@
 #define ANTIC_MAIN_H
 
 #include <Antic/StateManager.h>
-#include <GL/glew.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <IL/ilu.h>
+#include <Antic/Antic_Graph.h>
 
-#include <Antic/Services.h>
+//#include <Antic/Services.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +29,7 @@ namespace antic
 		void setStateManager( StateManager* );
 
 		SDL_Window* getWindow();
-		antic::Services &getServices();
+		//antic::Services &getServices();
 
 		SDL_Event event;
 	private:
@@ -39,9 +37,9 @@ namespace antic
 		SDL_Window* window;
 		SDL_GLContext context;
 
-		antic::Services services;
+		//antic::Services services;
 
-		std::string name = "DefaultShader";
+		//std::string name = "DefaultShader";
 	};
 }
 

@@ -1,3 +1,4 @@
+/*
 #include <Antic/EngineVars.h>
 #include <GL/glew.h>
 #include <fstream>
@@ -187,3 +188,4 @@ std::string antic::EngineVars::loadShaderSource( std::string path )
 
     return shaderSource;
 }
+*/

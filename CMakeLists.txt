@@ -22,7 +22,8 @@ add_library( Antic_Engine STATIC
 	src/GameState.cpp
 	src/Services.cpp
 	src/EngineVars.cpp
-	src/Texture.cpp
+	src/Antic_Graph.cpp
+	src/RenderQueue.cpp
 )
 
 if( WIN32 )
@@ -33,4 +34,4 @@ if( UNIX )
 	target_link_libraries( Antic_Engine GLEW ${IL_LIBRARIES} )
 endif( UNIX )
 
-target_link_libraries( Antic_Engine ${LIB} SDL2 )
+target_link_libraries( Antic_Engine ${LIB} SDL2 SDL2_image SDL2_ttf )
