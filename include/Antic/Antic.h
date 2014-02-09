@@ -8,4 +8,9 @@
 #include <Antic/Rect.h>
 #include <Antic/Drawable.h>
 
+#include <Antic/Services.h>
+#include <Antic/EngineVars.h>
+
+#include <Antic/Texture.h>
+
 #endif

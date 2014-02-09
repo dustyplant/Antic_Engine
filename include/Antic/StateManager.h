@@ -28,6 +28,7 @@ namespace antic
 
 		void setWindow( SDL_Window* );
 	private:
+		void close();
 		std::stack<GameState*> stateStack;
 		SDL_Window* window;
 	};

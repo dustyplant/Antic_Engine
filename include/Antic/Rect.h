@@ -5,10 +5,10 @@ namespace antic
 {
 	struct Rect
 	{
-		float x;
-		float y;
-		float w;
-		float h;
+		GLfloat x;
+		GLfloat y;
+		GLfloat w;
+		GLfloat h;
 	};
 }
 

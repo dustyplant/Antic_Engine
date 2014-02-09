@@ -18,7 +18,7 @@ namespace antic
 		virtual int getLayersSize();
 		virtual void clear();
 	private:
-		// The rendering layers.
+		/// The rendering layers.
 		std::vector< std::vector<Drawable*> > layers;
 	};
 }

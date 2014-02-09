@@ -2,11 +2,7 @@
 
 antic::StateManager::~StateManager()
 {
-	while( stateStack.size() > 0 )
-	{
-		delete stateStack.top();
-		stateStack.pop();
-	}
+	close();
 }
 
 bool antic::StateManager::init()
@@ -48,4 +44,13 @@ void antic::StateManager::changeState( GameState* newState )
 void antic::StateManager::setWindow( SDL_Window* win )
 {
 	window = win;
+}
+
+void antic::StateManager::close()
+{
+	while( stateStack.size() > 0 )
+	{
+		delete stateStack.top();
+		stateStack.pop();
+	}
 }

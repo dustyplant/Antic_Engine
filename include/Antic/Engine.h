@@ -2,8 +2,12 @@
 #define ANTIC_MAIN_H
 
 #include <Antic/StateManager.h>
+#include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#include <IL/ilu.h>
+
+#include <Antic/Services.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,6 +19,8 @@ namespace antic
 	{
 	public:
 		Engine();
+
+		/// Cleans everything up. Also calls close(), so you don't have to worry about it.
 		virtual ~Engine();
 		virtual bool init( std::string title, int width, int height );
 		virtual void update();
@@ -25,12 +31,17 @@ namespace antic
 		void setStateManager( StateManager* );
 
 		SDL_Window* getWindow();
+		antic::Services &getServices();
 
 		SDL_Event event;
 	private:
 		StateManager* sm;
 		SDL_Window* window;
 		SDL_GLContext context;
+
+		antic::Services services;
+
+		std::string name = "DefaultShader";
 	};
 }
 
