@@ -12,4 +12,7 @@
 #include <Antic/EngineVars.h>
 #include <Antic/Antic_Graph.h>
 
+#include <Antic/EntityManager.h>
+#include <Antic/Entity.h>
+
 #endif

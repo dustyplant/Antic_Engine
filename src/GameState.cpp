@@ -2,28 +2,35 @@
 
 antic::GameState::GameState()
 {
-	rq = new antic::RenderQueue();
+	//rq = new antic::RenderQueue();
+	entityManager = new EntityManager();
 }
 
 antic::GameState::~GameState()
 {
 	close();
 }
-
+/*
 void antic::GameState::setWindow( SDL_Window* win )
 {
 	window = win;
 }
-
+*/
 void antic::GameState::close()
 {
-	if( rq != nullptr )
-		delete rq;
-	rq = nullptr;
+	if( entityManager != nullptr )
+		delete entityManager;
+	entityManager = nullptr;
 }
 
 void antic::GameState::render()
 {
-	if( rq != nullptr )
-		rq->render();
+	if( entityManager != nullptr )
+		entityManager->render();
 }
+/*
+antic::EntityManager* antic::GameState::getEntityManager()
+{
+	return entityManager;
+}
+*/

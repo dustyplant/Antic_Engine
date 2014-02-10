@@ -24,6 +24,8 @@ add_library( Antic_Engine STATIC
 	src/EngineVars.cpp
 	src/Antic_Graph.cpp
 	src/RenderQueue.cpp
+	src/EntityManager.cpp
+	src/Entity.cpp
 )
 
 if( WIN32 )

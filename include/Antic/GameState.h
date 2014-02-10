@@ -2,7 +2,7 @@
 #define GAMESTATE_H
 
 #include <SDL2/SDL.h>
-#include <Antic/RenderQueue.h>
+#include <Antic/EntityManager.h>
 
 namespace antic
 {
@@ -17,14 +17,17 @@ namespace antic
 		virtual void render();
 
 		virtual void close();
-		void setWindow( SDL_Window* );
+
+		//virtual antic::EntityManager* getEntityManager();
+		//void setWindow( SDL_Window* );
 		/*
 		virtual bool onEnter();
 		virtual bool onExit();
 		*/
+		antic::EntityManager *entityManager = nullptr;
 	private:
-		SDL_Window* window = nullptr;
-		RenderQueue* rq = nullptr;
+		//SDL_Window* window = nullptr;
+		//RenderQueue* rq = nullptr;
 		//ObjectManager* om;
 	};
 }

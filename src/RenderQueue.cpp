@@ -13,6 +13,7 @@ bool antic::RenderQueue::init( int numberOfLayers )
 	{
 		std::make_heap( layers[i].begin(), layers[i].end() );
 	}
+	return true;
 }
 
 void antic::RenderQueue::render()
@@ -31,7 +32,7 @@ void antic::RenderQueue::render()
 
 void antic::RenderQueue::insert( Drawable* obj )
 {
-	if( obj != nullptr && obj->layer > 0 && obj->layer < layers.size() )
+	if( obj != nullptr && obj->layer >= 0 && obj->layer < layers.size() )
 	{
 		layers[ obj->layer ].push_back( obj );
 		std::push_heap( layers[ obj->layer ].begin(), layers[ obj->layer ].end() );
