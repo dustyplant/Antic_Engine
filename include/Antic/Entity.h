@@ -6,6 +6,7 @@
 
 namespace antic
 {
+	class EntityManager;
 	class Entity : public Drawable
 	{
 	public:
@@ -17,8 +18,12 @@ namespace antic
 		GLuint getID();
 		void setID( GLuint newID );
 
+		void setEntityManager( EntityManager * );
+		EntityManager *getEntityManager();
+
 	private:
 		GLuint id = 0;
+		EntityManager *em = nullptr;
 	};
 }
 

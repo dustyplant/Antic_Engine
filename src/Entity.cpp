@@ -1,4 +1,5 @@
 #include <Antic/Entity.h>
+#include <Antic/EntityManager.h>
 
 antic::Entity::~Entity()
 {
@@ -28,4 +29,15 @@ GLuint antic::Entity::getID()
 void antic::Entity::setID( GLuint newID )
 {
 	id = newID;
+}
+
+
+void antic::Entity::setEntityManager( antic::EntityManager *entityManager )
+{
+	em = entityManager;
+}
+
+antic::EntityManager *antic::Entity::getEntityManager()
+{
+	return em;
 }
