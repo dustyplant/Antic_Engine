@@ -18,17 +18,11 @@ namespace antic
 
 		virtual void close();
 
-		//virtual antic::EntityManager* getEntityManager();
-		//void setWindow( SDL_Window* );
 		/*
 		virtual bool onEnter();
 		virtual bool onExit();
 		*/
 		antic::EntityManager *entityManager = nullptr;
-	private:
-		//SDL_Window* window = nullptr;
-		//RenderQueue* rq = nullptr;
-		//ObjectManager* om;
 	};
 }
 

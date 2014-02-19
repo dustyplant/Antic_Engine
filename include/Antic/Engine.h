@@ -29,17 +29,12 @@ namespace antic
 		void setStateManager( StateManager* );
 
 		SDL_Window* getWindow();
-		//antic::Services &getServices();
 
 		SDL_Event event;
 	private:
 		StateManager* sm;
 		SDL_Window* window;
 		SDL_GLContext context;
-
-		//antic::Services services;
-
-		//std::string name = "DefaultShader";
 	};
 }
 
