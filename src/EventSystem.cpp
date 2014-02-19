@@ -3,9 +3,9 @@
 // Subject member functions
 using namespace antic;
 
-static bool compare( Event &a, Event &b )
+static bool compare( Event *a, Event *b )
 {
-	return a.getPriority() < b.getPriority();
+	return a->getPriority() < b->getPriority();
 }
 
 Subject::Subject()
@@ -35,7 +35,7 @@ void Subject::removeObserver( Observer *observer, std::set<Observer*> &someSet )
 		someSet.erase( iter );	
 }
 
-void Subject::removeObserver( Observer *observer, const std::type_info *t )
+void Subject::removeObserver( Observer *observer, std::type_index &t )
 {
 	auto iter = obsMap.find( t );
 	if( iter != obsMap.end() )
@@ -46,8 +46,8 @@ void Subject::notifyObservers()
 {
 	while( eventHeap.size() > 0 )
 	{
-		Event tempEvent = eventHeap.front();
-		std::pop_heap( eventHeap.begin(), eventHeap.end() );
+		Event *tempEvent = eventHeap.front();
+		std::pop_heap( eventHeap.begin(), eventHeap.end(), compare );
 		eventHeap.pop_back();
 
 		for( auto iter : observers )
@@ -55,21 +55,23 @@ void Subject::notifyObservers()
 			iter->notify( tempEvent );
 		}
 
-		const std::type_info *t = &typeid( &tempEvent );
+		std::type_index t( typeid( tempEvent ) );
+		printf("%s\n", t.name());
 		if( obsMap.find( t ) != obsMap.end() )
 		{
 			for( auto iter : obsMap[ t ] )
 			{
 				iter->notify( tempEvent );
 			}
+				printf("Notifying special observers.\n");
 		}
 	}
 }
 
-void Subject::push_event( Event event )
+void Subject::push_event( Event *event )
 {
 	eventHeap.push_back( event );
-	std::push_heap( eventHeap.begin(), eventHeap.end() );
+	std::push_heap( eventHeap.begin(), eventHeap.end(), compare );
 }
 
 int Subject::getSize()
@@ -82,7 +84,26 @@ int Subject::getNumEvents()
 	return eventHeap.size();
 }
 
+void Subject::addObserver( Observer *observer, Event *event )
+{
+	std::type_index t( typeid( event ) );
+	auto iter = obsMap.find( t );
+	if( iter != obsMap.end() )
+	{
+		iter->second.insert( observer );
+	}
+	else
+	{
+		obsMap[ t ];
+		obsMap.at( t ).insert( observer );
+	}
 
+}
+void Subject::removeObserver( Observer *observer, Event *event )
+{
+	std::type_index t( typeid( event ) );
+	removeObserver( observer, t );
+}
 
 
 
@@ -102,7 +123,7 @@ Observer::~Observer()
 	removeLogs();
 }
 
-void Observer::notify( Event event )
+void Observer::notify( Event *event )
 {
 	Observer::push_event( event );
 }
@@ -123,16 +144,16 @@ void Observer::addToLog( Subject *sub )
 	sub->addObserver( this );
 }
 
-void Observer::push_event( Event event )
+void Observer::push_event( Event *event )
 {
 	eventHeap.push_back( event );
-	std::push_heap( eventHeap.begin(), eventHeap.end() );
+	std::push_heap( eventHeap.begin(), eventHeap.end(), compare );
 }
 
-Event Observer::pop_event()
+Event* Observer::pop_event()
 {
-	Event tempEvent = eventHeap.front();
-	std::pop_heap( eventHeap.begin(), eventHeap.end() );
+	Event *tempEvent = eventHeap.front();
+	std::pop_heap( eventHeap.begin(), eventHeap.end(), compare );
 	eventHeap.pop_back();
 	return tempEvent;
 }
@@ -147,4 +168,20 @@ void Observer::removeSubject( Subject *sub )
 	auto iter = loggedToAll.find( sub );
 	if( iter != loggedToAll.end() )
 		loggedToAll.erase( iter );
+}
+
+void Observer::addToLog( Subject *sub, Event *event )
+{
+	std::type_index t( typeid(event) );
+	logged.insert( std::make_pair( sub, t ) );
+	sub->addObserver( this, event );
+}
+void Observer::removeSubject( Subject *sub, Event *event )
+{
+	std::type_index t( typeid(event) );
+	std::pair<Subject*, std::type_index> tempPair( sub, t );
+
+	auto iter = logged.find( tempPair );
+	if( iter != logged.end() )
+		logged.erase( iter );
 }
