@@ -50,8 +50,8 @@ namespace AGraph
 	SDL_Color getColor( std::string name );
 
 	// Render functions.
-	void render( std::string name, int x = 0, int y = 0, SDL_Rect *clip = nullptr );
-	void render( SDL_Texture *texture, int x = 0, int y = 0, SDL_Rect *clip = nullptr );
+	void render( std::string name, int x = 0, int y = 0, SDL_Rect *clip = nullptr, const double angle = 0.0f, const SDL_Point *centerRotate = nullptr );
+	void render( SDL_Texture *texture, int x = 0, int y = 0, SDL_Rect *clip = nullptr, const double angle = 0.0f, const SDL_Point *centerRotate = nullptr );
 
 	// Call this function when done rendering to display to the screen.
 	void renderDone();

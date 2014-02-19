@@ -73,7 +73,7 @@ bool AGraph::loadImage( std::string name, std::string path )
 	return loaded;
 }
 
-void AGraph::render( SDL_Texture *texture, int x, int y, SDL_Rect *clip )
+void AGraph::render( SDL_Texture *texture, int x, int y, SDL_Rect *clip, const double angle, const SDL_Point *centerRotate )
 {
 	static SDL_Rect pos;
 	pos.x = x;
@@ -86,7 +86,7 @@ void AGraph::render( SDL_Texture *texture, int x, int y, SDL_Rect *clip )
 	else
 		SDL_QueryTexture( texture, nullptr, nullptr, &pos.w, &pos.h );
 
-	SDL_RenderCopy( AGraph::renderer, texture, clip, &pos );
+	SDL_RenderCopyEx( AGraph::renderer, texture, clip, &pos, angle, centerRotate, SDL_FLIP_NONE );
 }
 
 void AGraph::renderDone()
@@ -95,9 +95,9 @@ void AGraph::renderDone()
 	SDL_RenderClear( AGraph::renderer );
 }
 
-void AGraph::render( std::string words, int x, int y, SDL_Rect *clip )
+void AGraph::render( std::string words, int x, int y, SDL_Rect *clip, const double angle, const SDL_Point *centerRotate )
 {
-	AGraph::render( getTexture( words ), x, y, clip );
+	AGraph::render( getTexture( words ), x, y, clip, angle, centerRotate );
 }
 
 SDL_Texture* AGraph::getTexture( std::string name )
