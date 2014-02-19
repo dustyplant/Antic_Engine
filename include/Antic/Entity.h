@@ -1,7 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <GL/glew.h>
 #include <Antic/Drawable.h>
 
 namespace antic
@@ -15,14 +14,14 @@ namespace antic
 		virtual void update();
 		virtual void render();
 
-		GLuint getID();
-		void setID( GLuint newID );
+		unsigned int getID();
+		void setID( unsigned int newID );
 
 		void setEntityManager( EntityManager * );
 		EntityManager *getEntityManager();
 
 	private:
-		GLuint id = 0;
+		unsigned int id = 0;
 		EntityManager *em = nullptr;
 	};
 }

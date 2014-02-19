@@ -41,19 +41,19 @@ void antic::EntityManager::addEntity( antic::Entity* newEntity )
 	}
 }
 
-antic::Entity* antic::EntityManager::getEntity( GLuint entityID )
+antic::Entity* antic::EntityManager::getEntity( unsigned int entityID )
 {
 	if( hasEntity( entityID ) )
 		return entities[ entityID ];
 	return nullptr;
 }
 
-bool antic::EntityManager::hasEntity( GLuint entityID )
+bool antic::EntityManager::hasEntity( unsigned int entityID )
 {
 	return entities.find( entityID ) != entities.end();
 }
 
-void antic::EntityManager::removeEntity( GLuint entityID )
+void antic::EntityManager::removeEntity( unsigned int entityID )
 {
 	if( hasEntity( entityID ) )
 	{
@@ -65,9 +65,9 @@ void antic::EntityManager::removeEntity( GLuint entityID )
 
 }
 
-GLuint antic::EntityManager::getNewID()
+unsigned int antic::EntityManager::getNewID()
 {
-	GLuint id = 0;
+	unsigned int id = 0;
 	if( freeIDs.size() == 0 )
 	{
 		id = ++currIDs;

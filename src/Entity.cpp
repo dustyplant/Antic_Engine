@@ -21,12 +21,12 @@ void antic::Entity::render()
 
 }
 
-GLuint antic::Entity::getID()
+unsigned int antic::Entity::getID()
 {
 	return id;
 }
 
-void antic::Entity::setID( GLuint newID )
+void antic::Entity::setID( unsigned int newID )
 {
 	id = newID;
 }
