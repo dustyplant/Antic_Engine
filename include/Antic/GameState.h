@@ -13,7 +13,7 @@ namespace antic
 		GameState();
 		virtual ~GameState();
 		virtual bool init() = 0;
-		virtual void update() = 0;
+		virtual void update();
 		virtual void render();
 
 		virtual void close();
