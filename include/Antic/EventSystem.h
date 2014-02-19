@@ -20,15 +20,11 @@ namespace antic
 
 		void addObserver( Observer *observer );
 		
-		template <class T>
-		void addObserver( Observer *observer );
 
 		void removeObserver( Observer *observer );
 		void removeObserver( Observer *observer, const std::type_info *t );
 		void removeObserver( Observer *observer, std::set< Observer* > &someSet );
 
-		template <class T>
-		void removeObserver( Observer *observer );
 
 		void notifyObservers();
 
@@ -37,6 +33,28 @@ namespace antic
 		int getSize();
 		int getNumEvents();
 
+
+		// The function definitions need to be in the header because of the templates.
+		template <class T>
+		void addObserver( Observer *observer )
+		{
+			const std::type_info *t = &typeid( T );
+			auto iter = obsMap.find( t );
+			if( iter != obsMap.end() )
+				iter->second.insert( observer );
+			else
+			{
+				obsMap[ t ];
+				obsMap.at( t ).insert( observer );
+			}
+		};
+		
+		template <class T>
+		void removeObserver( Observer *observer )
+		{
+			const std::type_info *t = typeid( T );
+			removeObserver( observer, t );
+		};
 	private:
 		std::set< Observer* > observers;
 		std::map< const std::type_info*, std::set<Observer*> >obsMap;
@@ -56,10 +74,8 @@ namespace antic
 
 		void removeLogs();
 		
-		template <class T>
-		void addToLog( Subject &sub );
 
-		void addToLog( Subject &sub );
+		void addToLog( Subject *sub );
 
 		void push_event( Event event );
 		Event pop_event();
@@ -69,7 +85,22 @@ namespace antic
 		void removeSubject( Subject *sub );
 
 		template <class T>
-		void removeSubject( Subject *sub );
+		void addToLog( Subject *sub )
+		{
+			logged.insert( std::make_pair( sub, &typeid(T) ) );
+			sub->addObserver<T>( this );
+		};
+		
+		template <class T>
+		void removeSubject( Subject *sub )
+		{
+			const std::type_info *t = &typeid(T);
+			std::pair<Subject*, const std::type_info *> tempPair( sub, t );
+
+			auto iter = logged.find( tempPair );
+			if( iter != logged.end() )
+				logged.erase( iter );
+		};
 
 	private:
 		std::vector< Event > eventHeap;

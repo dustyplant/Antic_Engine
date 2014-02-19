@@ -23,20 +23,6 @@ void Subject::addObserver( Observer *observer )
 	observers.insert( observer );
 }
 
-template <class T>
-void Subject::addObserver( Observer *observer )
-{
-	const std::type_info *t = typeid( T );
-	auto iter = obsMap.find( t );
-	if( iter != obsMap.end() )
-		iter->second.insert( observer );
-	else
-	{
-		obsMap[ t ];
-		obsMap.at( t ).insert( observer );
-	}
-}
-
 void Subject::removeObserver( Observer *observer )
 {
 	removeObserver( observer, observers );
@@ -47,13 +33,6 @@ void Subject::removeObserver( Observer *observer, std::set<Observer*> &someSet )
 	auto iter = someSet.find( observer );
 	if( iter != someSet.end() )
 		someSet.erase( iter );	
-}
-
-template <class T>
-void Subject::removeObserver( Observer *observer )
-{
-	const std::type_info *t = typeid( T );
-	removeObserver( observer, t );
 }
 
 void Subject::removeObserver( Observer *observer, const std::type_info *t )
@@ -105,6 +84,12 @@ int Subject::getNumEvents()
 
 
 
+
+
+
+
+
+
 // Observer member functions
 
 Observer::Observer()
@@ -132,16 +117,10 @@ void Observer::removeLogs()
 		iter->removeObserver( this );
 }
 
-template <class T>
-void Observer::addToLog( Subject &sub )
+void Observer::addToLog( Subject *sub )
 {
-	logged.insert( std::make_pair( &sub, &typeid(T) ) );
-	sub.addObserver<T>( this );
-}
-
-void Observer::addToLog( Subject &sub )
-{
-	loggedToAll.insert( &sub );
+	loggedToAll.insert( sub );
+	sub->addObserver( this );
 }
 
 void Observer::push_event( Event event )
@@ -168,17 +147,4 @@ void Observer::removeSubject( Subject *sub )
 	auto iter = loggedToAll.find( sub );
 	if( iter != loggedToAll.end() )
 		loggedToAll.erase( iter );
-}
-
-template <class T>
-void Observer::removeSubject( Subject *sub )
-{
-	/*
-	const std::type_info &t = typeid(T);
-	std::pair<Subject*, const std::type_info>& tempPair( sub, t );
-
-	auto iter = logged.find( tempPair );
-	if( iter != logged.end() )
-		logged.erase( iter );
-		*/
 }
