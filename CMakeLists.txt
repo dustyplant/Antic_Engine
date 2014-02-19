@@ -20,8 +20,6 @@ add_library( Antic_Engine STATIC
 	src/Engine.cpp
 	src/StateManager.cpp
 	src/GameState.cpp
-	src/Services.cpp
-	src/EngineVars.cpp
 	src/Antic_Graph.cpp
 	src/RenderQueue.cpp
 	src/EntityManager.cpp
