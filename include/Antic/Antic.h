@@ -17,6 +17,10 @@
 #include <Antic/EntityManager.h>
 #include <Antic/Entity.h>
 
+// Events
+#include <Antic/EventSystem.h>
+#include <Antic/Event.h>
+#include <Antic/SystemEvent.h>
 
 // Misc
 #include <Antic/Rect.h>
