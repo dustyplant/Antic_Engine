@@ -24,6 +24,7 @@ add_library( Antic_Engine STATIC
 	src/RenderQueue.cpp
 	src/EntityManager.cpp
 	src/Entity.cpp
+	src/EventSystem.cpp
 )
 
 if( WIN32 )

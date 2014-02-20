@@ -2,12 +2,13 @@
 #define STATEMANAGER_H
 
 #include <Antic/GameState.h>
+#include <Antic/EventSystem.h>
 #include <stack>
-#include <SDL2/SDL.h>
 
 namespace antic
 {	
-	class StateManager
+	class Engine;
+	class StateManager : public Subject, public Observer
 	{
 	public:
 		virtual ~StateManager();
@@ -26,11 +27,15 @@ namespace antic
 		// Pushes and pops safely.
 		void changeState( GameState* );
 
-		void setWindow( SDL_Window* );
+		Engine *getEngine();
+		void setEngine( Engine * const );
+
 	private:
 		void close();
+
 		std::stack<GameState*> stateStack;
-		SDL_Window* window;
+		Engine *engine = nullptr;
+
 	};
 }
 

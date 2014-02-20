@@ -24,6 +24,7 @@ void antic::StateManager::render()
 
 void antic::StateManager::pushState( GameState* newState )
 {
+	newState->setStateManager( this );
 	stateStack.push( newState );
 }
 
@@ -41,11 +42,6 @@ void antic::StateManager::changeState( GameState* newState )
 	stateStack.push( newState );
 }
 
-void antic::StateManager::setWindow( SDL_Window* win )
-{
-	window = win;
-}
-
 void antic::StateManager::close()
 {
 	while( stateStack.size() > 0 )
@@ -53,4 +49,14 @@ void antic::StateManager::close()
 		delete stateStack.top();
 		stateStack.pop();
 	}
+}
+
+antic::Engine *antic::StateManager::getEngine()
+{
+	return engine;
+}
+
+void antic::StateManager::setEngine( antic::Engine *newEngine )
+{
+	engine = newEngine;
 }
