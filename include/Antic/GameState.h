@@ -6,6 +6,7 @@
 
 namespace antic
 {
+	class StateManager;
 	class GameState
 	{
 	public:
@@ -18,11 +19,17 @@ namespace antic
 
 		virtual void close();
 
+		StateManager *getStateManager();
+		void setStateManager( StateManager * );
+
 		/*
 		virtual bool onEnter();
 		virtual bool onExit();
 		*/
 		antic::EntityManager *entityManager = nullptr;
+
+	private:
+		StateManager *sm = nullptr;
 	};
 }
 

@@ -55,6 +55,7 @@ void antic::Engine::setStateManager( StateManager* newSM )
 	if( sm != nullptr )
 		delete sm;
 	sm = newSM;
+	sm->setEngine( this );
 }
 
 SDL_Window* antic::Engine::getWindow()

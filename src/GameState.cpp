@@ -22,3 +22,12 @@ void antic::GameState::render()
 	if( entityManager != nullptr )
 		entityManager->render();
 }
+
+antic::StateManager *antic::GameState::getStateManager()
+{
+	return sm;	
+}
+void antic::GameState::setStateManager( antic::StateManager *newStateManager )
+{
+	sm = newStateManager;
+}

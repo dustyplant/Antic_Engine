@@ -2,8 +2,8 @@
 #define ANTIC_MAIN_H
 
 #include <Antic/StateManager.h>
-#include <SDL2/SDL.h>
 #include <Antic/Antic_Graph.h>
+#include <Antic/EventSystem.h>
 
 //#include <Antic/Services.h>
 
@@ -13,7 +13,7 @@
 
 namespace antic
 {
-	class Engine
+	class Engine : public Subject
 	{
 	public:
 		Engine();
