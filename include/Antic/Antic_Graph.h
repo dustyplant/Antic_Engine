@@ -8,6 +8,9 @@
 #include <map>
 #include <iostream>
 
+/**
+ * A small Graphics API used in this engine that is just a wrapper for SDL2 rendering.
+ */
 namespace AGraph
 {
 	static SDL_Window *window = nullptr;

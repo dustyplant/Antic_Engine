@@ -13,3 +13,5 @@
 *.a
 
 build/
+docs/
+BuildInstaller.sh

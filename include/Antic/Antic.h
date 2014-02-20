@@ -1,6 +1,11 @@
 #ifndef ANTIC_H
 #define ANTIC_H
 
+/**
+ * Include this header to get all the headers for the Antic_Engine.
+ * It's a simple one stop shop.
+ */
+
 // Engine
 #include <Antic/Engine.h>
 
