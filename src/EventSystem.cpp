@@ -15,7 +15,12 @@ Subject::Subject()
 
 Subject::~Subject()
 {
+	for( auto iter : observers )
+		iter->removeSubject( this );
 
+	for( auto iter : obsMap )
+		for( auto iter2 : iter.second )
+			iter2->removeSubject( this, iter.first );
 }
 
 void Subject::addObserver( Observer *observer )
@@ -63,7 +68,6 @@ void Subject::notifyObservers()
 			{
 				iter->notify( tempEvent );
 			}
-				printf("Notifying special observers.\n");
 		}
 	}
 }
@@ -143,6 +147,12 @@ void Observer::addToLog( Subject *sub )
 	loggedToAll.insert( sub );
 	sub->addObserver( this );
 }
+void Observer::addToLog( Subject *sub, Event *event )
+{
+	std::type_index t( typeid(event) );
+	logged.insert( std::make_pair( sub, t ) );
+	sub->addObserver( this, event );
+}
 
 void Observer::push_event( Event *event )
 {
@@ -170,18 +180,32 @@ void Observer::removeSubject( Subject *sub )
 		loggedToAll.erase( iter );
 }
 
-void Observer::addToLog( Subject *sub, Event *event )
-{
-	std::type_index t( typeid(event) );
-	logged.insert( std::make_pair( sub, t ) );
-	sub->addObserver( this, event );
-}
 void Observer::removeSubject( Subject *sub, Event *event )
 {
 	std::type_index t( typeid(event) );
+	removeSubject( sub, t );
+}
+
+void Observer::removeSubject( Subject *sub, const std::type_index &t )
+{
 	std::pair<Subject*, std::type_index> tempPair( sub, t );
 
 	auto iter = logged.find( tempPair );
 	if( iter != logged.end() )
 		logged.erase( iter );
+}
+
+int Observer::getNumSubjects()
+{
+	return loggedToAll.size() + logged.size();
+}
+
+bool Observer::isLogged( const std::type_index &t )
+{
+	bool result = false;
+	for( auto iter : logged )
+		if( iter.second == t )
+			result = true;
+
+	return result;
 }

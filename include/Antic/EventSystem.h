@@ -20,11 +20,13 @@ namespace antic
 		virtual ~Subject();
 
 		void addObserver( Observer *observer );
+		void addObserver( Observer *observer, Event *event );
 		
 		
 		void removeObserver( Observer *observer );
 		void removeObserver( Observer *observer, std::type_index &t );
 		void removeObserver( Observer *observer, std::set< Observer* > &someSet );
+		void removeObserver( Observer *observer, Event *event );
 
 
 		void notifyObservers();
@@ -34,8 +36,6 @@ namespace antic
 		int getSize();
 		int getNumEvents();
 
-		void addObserver( Observer *observer, Event *event );
-		void removeObserver( Observer *observer, Event *event );
 
 	private:
 		std::set< Observer* > observers;
@@ -58,16 +58,20 @@ namespace antic
 		
 
 		void addToLog( Subject *sub );
+		void addToLog( Subject *sub, Event *event );
 
 		void push_event( Event *event );
 		Event* pop_event();
 
-		int getNumEvents();
 
 		void removeSubject( Subject *sub );
 
-		void addToLog( Subject *sub, Event *event );
 		void removeSubject( Subject *sub, Event *event );
+		void removeSubject( Subject *sub, const std::type_index &t );
+		
+		int getNumEvents();
+		int getNumSubjects();
+		bool isLogged( const std::type_index &t );
 
 	private:
 		std::vector< Event* > eventHeap;
