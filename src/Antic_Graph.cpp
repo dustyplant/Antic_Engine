@@ -66,12 +66,12 @@ SDL_Texture *AGraph::loadImage( std::string path )
 
 bool AGraph::loadImage( std::string name, std::string path )
 {
-	bool loaded = false;
+	bool loaded = true;
 	if( AGraph::textureMap[ name ] == nullptr )
 	{
 		AGraph::textureMap[ name ] = AGraph::loadImage( path );
-		if( AGraph::textureMap[ name ] != nullptr )
-			loaded = true;
+		if( AGraph::textureMap[ name ] == nullptr )
+			loaded = false;
 	}
 	return loaded;
 }

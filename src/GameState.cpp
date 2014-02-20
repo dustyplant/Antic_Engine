@@ -3,6 +3,7 @@
 antic::GameState::GameState()
 {
 	entityManager = new EntityManager();
+	entityManager->init();
 }
 
 antic::GameState::~GameState()
