@@ -130,7 +130,6 @@ void Observer::notify( Event *event )
 {
 	Observer::eventHeap.push_back( event );
 	std::push_heap( eventHeap.begin(), eventHeap.end(), compare );
-	printf("Notifying. Event Heap Size: %d\n", eventHeap.size());
 }
 
 void Observer::removeLogs()

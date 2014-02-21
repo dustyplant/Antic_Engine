@@ -12,10 +12,14 @@ bool antic::StateManager::init()
 
 void antic::StateManager::update()
 {
-	printf("Event Heap Size Before: %d\n", antic::Subject::getNumEvents());
-	antic::Subject::notifyObservers();
-	printf("Event Heap Size After: %d\n", antic::Subject::getNumEvents());
+	// Passing events from the observer event heap to the subject event heap.
+	while( antic::Observer::getNumEvents() > 0 )
+		antic::Subject::push_event( antic::Observer::pop_event() );
 
+	// Passing events from the subject event heap to all logged observers.
+	antic::Subject::notifyObservers();
+
+	// Updates the active GameState object.
 	if( stateStack.empty() == false )
 		stateStack.top()->update();
 }

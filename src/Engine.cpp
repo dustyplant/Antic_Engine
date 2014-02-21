@@ -47,7 +47,7 @@ void antic::Engine::gameLoop()
 			SystemEvent *sysEvent = new SystemEvent;
 			//((SystemEvent *)sysEvent)->event = this->event;
 			sysEvent->event = this->event;
-			push_event( sysEvent );
+			antic::Subject::push_event( sysEvent );
 
 			if( this->event.type == SDL_QUIT )
 				quit = true;
