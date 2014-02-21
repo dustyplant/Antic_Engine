@@ -12,6 +12,10 @@ bool antic::StateManager::init()
 
 void antic::StateManager::update()
 {
+	printf("Event Heap Size Before: %d\n", antic::Subject::getNumEvents());
+	antic::Subject::notifyObservers();
+	printf("Event Heap Size After: %d\n", antic::Subject::getNumEvents());
+
 	if( stateStack.empty() == false )
 		stateStack.top()->update();
 }

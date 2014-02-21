@@ -30,6 +30,7 @@ bool antic::Engine::init( std::string title, int width, int height )
 
 void antic::Engine::update()
 {
+	antic::Subject::notifyObservers();
 	if( sm != nullptr )
 	{
 		sm->update();
@@ -43,13 +44,13 @@ void antic::Engine::gameLoop()
 	{
 		while( SDL_PollEvent( &this->event ) )
 		{
-			Event *sysEvent = new SystemEvent;
-			((SystemEvent *)sysEvent)->event = this->event;
+			SystemEvent *sysEvent = new SystemEvent;
+			//((SystemEvent *)sysEvent)->event = this->event;
+			sysEvent->event = this->event;
 			push_event( sysEvent );
 
 			if( this->event.type == SDL_QUIT )
 				quit = true;
-
 		}
 		update();
 		render();

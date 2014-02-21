@@ -61,7 +61,6 @@ void Subject::notifyObservers()
 		}
 
 		std::type_index t( typeid( tempEvent ) );
-		printf("%s\n", t.name());
 		if( obsMap.find( t ) != obsMap.end() )
 		{
 			for( auto iter : obsMap[ t ] )
@@ -129,7 +128,9 @@ Observer::~Observer()
 
 void Observer::notify( Event *event )
 {
-	Observer::push_event( event );
+	Observer::eventHeap.push_back( event );
+	std::push_heap( eventHeap.begin(), eventHeap.end(), compare );
+	printf("Notifying. Event Heap Size: %d\n", eventHeap.size());
 }
 
 void Observer::removeLogs()
@@ -154,12 +155,6 @@ void Observer::addToLog( Subject *sub, Event *event )
 	sub->addObserver( this, event );
 }
 
-void Observer::push_event( Event *event )
-{
-	eventHeap.push_back( event );
-	std::push_heap( eventHeap.begin(), eventHeap.end(), compare );
-}
-
 Event* Observer::pop_event()
 {
 	Event *tempEvent = eventHeap.front();
@@ -170,7 +165,7 @@ Event* Observer::pop_event()
 
 int Observer::getNumEvents()
 {
-	return eventHeap.size();
+	return Observer::eventHeap.size();
 }
 
 void Observer::removeSubject( Subject *sub )

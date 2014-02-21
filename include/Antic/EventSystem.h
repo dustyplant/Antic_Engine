@@ -60,7 +60,6 @@ namespace antic
 		void addToLog( Subject *sub );
 		void addToLog( Subject *sub, Event *event );
 
-		void push_event( Event *event );
 		Event* pop_event();
 
 
