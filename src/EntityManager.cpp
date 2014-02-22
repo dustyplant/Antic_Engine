@@ -18,6 +18,11 @@ bool antic::EntityManager::init()
 
 void antic::EntityManager::update()
 {
+	for( auto iter : deletedEntities )
+		removeEntityNow( iter );
+
+	deletedEntities.clear();
+
 	for( auto iter: entities )
 		iter.second->update();
 }
@@ -36,6 +41,7 @@ void antic::EntityManager::addEntity( antic::Entity* newEntity )
 	if( newEntity->getID() == 0 )
 	{
 		newEntity->setID( getNewID() );
+		newEntity->setEntityManager( this );
 		
 		entities[ newEntity->getID() ] = newEntity;
 	}
@@ -54,6 +60,11 @@ bool antic::EntityManager::hasEntity( unsigned int entityID )
 }
 
 void antic::EntityManager::removeEntity( unsigned int entityID )
+{
+	deletedEntities.push_back( entityID );
+}
+
+void antic::EntityManager::removeEntityNow( unsigned int entityID )
 {
 	if( hasEntity( entityID ) )
 	{

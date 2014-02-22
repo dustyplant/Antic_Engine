@@ -27,6 +27,8 @@ namespace antic
 		void close();
 
 		std::map<unsigned int, Entity*> entities;
+		std::vector<unsigned int> deletedEntities;
+		void removeEntityNow( unsigned int entityID );
 
 		// Number of IDs that are currently in use.
 		unsigned int currIDs;
