@@ -25,12 +25,39 @@ Subject::~Subject()
 
 void Subject::addObserver( Observer *observer )
 {
-	observers.insert( observer );
+	// Code moved to Observer's addToLog function.
+	//observers.insert( observer );
+	observer->addToLog( this );
+}
+
+void Subject::addObserver( Observer *observer, Event *event )
+{
+	std::type_index t( typeid( *event ) );
+	addObserver( observer, t );
+}
+
+void Subject::addObserver( Observer *observer, const std::type_index &t )
+{
+	// Code moved to Observer's addToLog function.
+	/*
+	auto iter = obsMap.find( t );
+	if( iter != obsMap.end() )
+	{
+		iter->second.insert( observer );
+	}
+	else
+	{
+		obsMap[ t ];
+		obsMap.at( t ).insert( observer );
+	}
+	*/
+	observer->addToLog( this, t );
 }
 
 void Subject::removeObserver( Observer *observer )
 {
-	removeObserver( observer, observers );
+	//removeObserver( observer, observers );
+	observer->removeSubject( this );
 }
 
 void Subject::removeObserver( Observer *observer, std::set<Observer*> &someSet )
@@ -40,11 +67,21 @@ void Subject::removeObserver( Observer *observer, std::set<Observer*> &someSet )
 		someSet.erase( iter );	
 }
 
-void Subject::removeObserver( Observer *observer, std::type_index &t )
+void Subject::removeObserver( Observer *observer, const std::type_index &t )
 {
+	// Code moved to Observer's addToLog function.
+	/*
 	auto iter = obsMap.find( t );
 	if( iter != obsMap.end() )
 		removeObserver( observer, obsMap[ t ] );	
+	*/
+	observer->removeSubject( this, t );
+}
+
+void Subject::removeObserver( Observer *observer, Event *event )
+{
+	std::type_index t( typeid( *event ) );
+	removeObserver( observer, t );
 }
 
 void Subject::notifyObservers()
@@ -60,7 +97,7 @@ void Subject::notifyObservers()
 			iter->notify( tempEvent );
 		}
 
-		std::type_index t( typeid( tempEvent ) );
+		std::type_index t( typeid( *tempEvent ) );
 		if( obsMap.find( t ) != obsMap.end() )
 		{
 			for( auto iter : obsMap[ t ] )
@@ -87,26 +124,6 @@ int Subject::getNumEvents()
 	return eventHeap.size();
 }
 
-void Subject::addObserver( Observer *observer, Event *event )
-{
-	std::type_index t( typeid( event ) );
-	auto iter = obsMap.find( t );
-	if( iter != obsMap.end() )
-	{
-		iter->second.insert( observer );
-	}
-	else
-	{
-		obsMap[ t ];
-		obsMap.at( t ).insert( observer );
-	}
-
-}
-void Subject::removeObserver( Observer *observer, Event *event )
-{
-	std::type_index t( typeid( event ) );
-	removeObserver( observer, t );
-}
 
 
 
@@ -145,13 +162,31 @@ void Observer::removeLogs()
 void Observer::addToLog( Subject *sub )
 {
 	loggedToAll.insert( sub );
-	sub->addObserver( this );
+	//sub->addObserver( this );
+	// From Subject
+	sub->observers.insert( this );
 }
 void Observer::addToLog( Subject *sub, Event *event )
 {
-	std::type_index t( typeid(event) );
+	std::type_index t( typeid(*event) );
+	addToLog( sub, t );
+}
+
+void Observer::addToLog( Subject *sub, const std::type_index &t )
+{
 	logged.insert( std::make_pair( sub, t ) );
-	sub->addObserver( this, event );
+	//sub->addObserver( this, t );
+	// From Subject
+	auto iter = sub->obsMap.find( t );
+	if( iter != sub->obsMap.end() )
+	{
+		iter->second.insert( this );
+	}
+	else
+	{
+		sub->obsMap[ t ];
+		sub->obsMap.at( t ).insert( this );
+	}
 }
 
 Event* Observer::pop_event()
@@ -171,12 +206,17 @@ void Observer::removeSubject( Subject *sub )
 {
 	auto iter = loggedToAll.find( sub );
 	if( iter != loggedToAll.end() )
+	{
 		loggedToAll.erase( iter );
+		//sub->removeObserver( this );
+		// From Subject
+		sub->removeObserver( this, sub->observers );
+	}
 }
 
 void Observer::removeSubject( Subject *sub, Event *event )
 {
-	std::type_index t( typeid(event) );
+	std::type_index t( typeid(*event) );
 	removeSubject( sub, t );
 }
 
@@ -186,7 +226,14 @@ void Observer::removeSubject( Subject *sub, const std::type_index &t )
 
 	auto iter = logged.find( tempPair );
 	if( iter != logged.end() )
+	{
 		logged.erase( iter );
+		//sub->removeObserver( this, t );
+		// From Subject
+		auto iter2 = sub->obsMap.find( t );
+		if( iter2 != sub->obsMap.end() )
+			sub->removeObserver( this, sub->obsMap[ t ] );
+	}
 }
 
 int Observer::getNumSubjects()

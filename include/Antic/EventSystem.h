@@ -21,12 +21,13 @@ namespace antic
 
 		void addObserver( Observer *observer );
 		void addObserver( Observer *observer, Event *event );
+		void addObserver( Observer *observer, const std::type_index &t );
 		
 		
 		void removeObserver( Observer *observer );
-		void removeObserver( Observer *observer, std::type_index &t );
-		void removeObserver( Observer *observer, std::set< Observer* > &someSet );
+		void removeObserver( Observer *observer, const std::type_index &t );
 		void removeObserver( Observer *observer, Event *event );
+
 
 
 		void notifyObservers();
@@ -36,12 +37,34 @@ namespace antic
 		int getSize();
 		int getNumEvents();
 
+		template <class T>
+		void addObserver( Observer *observer )
+		{
+			T *event = new T;
+			std::type_index t( typeid(*event) );
+			delete event;
+			addObserver( observer, t );
+		};
+
+		template <class T>
+		void removeObserver( Observer *observer )
+		{
+			T *event = new T;
+			std::type_index t( typeid(*event) );
+			delete event;
+			removeObserver( observer, t );
+		};
 
 	private:
 		std::set< Observer* > observers;
 		std::map< std::type_index, std::set<Observer*> >obsMap;
 
 		std::vector< Event* > eventHeap;
+		
+		// A friend class to reduce code between the two classes.
+		friend class Observer;
+
+		void removeObserver( Observer *observer, std::set< Observer* > &someSet );
 	};
 
 
@@ -59,6 +82,7 @@ namespace antic
 
 		void addToLog( Subject *sub );
 		void addToLog( Subject *sub, Event *event );
+		void addToLog( Subject *sub, const std::type_index &t );
 
 		Event* pop_event();
 
@@ -71,6 +95,24 @@ namespace antic
 		int getNumEvents();
 		int getNumSubjects();
 		bool isLogged( const std::type_index &t );
+
+		template <class T>
+		void addToLog( Subject *sub )
+		{
+			T *event = new T;
+			std::type_index t( typeid(*event) );
+			delete event;
+			addToLog( sub, t );
+		};
+
+		template <class T>
+		void removeSubject( Subject *sub )
+		{
+			T *event = new T;
+			std::type_index t( typeid(*event) );
+			delete event;
+			removeSubject( sub, t );
+		};
 
 	private:
 		std::vector< Event* > eventHeap;
