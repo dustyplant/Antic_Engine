@@ -15,12 +15,16 @@ Subject::Subject()
 
 Subject::~Subject()
 {
-	for( auto iter : observers )
-		iter->removeSubject( this );
+	auto iter = observers.begin();
+	while( iter != observers.end() )
+		(*(iter++))->removeSubject( this );
 
 	for( auto iter : obsMap )
-		for( auto iter2 : iter.second )
-			iter2->removeSubject( this, iter.first );
+	{
+		auto iter2 = iter.second.begin();
+		while( iter2 != iter.second.end() )
+			(*(iter2++))->removeSubject( this, iter.first );
+	}
 }
 
 void Subject::addObserver( Observer *observer )
@@ -152,11 +156,13 @@ void Observer::notify( Event *event )
 void Observer::removeLogs()
 {
 	// Posibly not a safe operation.
-	for( auto iter : logged )
-		iter.first->removeObserver( this, iter.second );
+	auto iter = logged.begin();
+	while( iter != logged.end() )
+		(*(iter++)).first->removeObserver( this, (*iter).second );
 
-	for( auto iter : loggedToAll )
-		iter->removeObserver( this );
+	auto iter2 = loggedToAll.begin();
+	while( iter2 != loggedToAll.end() )
+		(*(iter2++))->removeObserver( this );
 }
 
 void Observer::addToLog( Subject *sub )
