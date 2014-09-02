@@ -6,7 +6,7 @@ bool AGraph::initAGraph( std::string title, int width, int height )
 	if( window == nullptr )
 		return false;
 
-	AGraph::renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	AGraph::renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED /*| SDL_RENDERER_PRESENTVSYNC */);
 	if( renderer == nullptr )
 		return false;
 
@@ -56,12 +56,30 @@ void AGraph::clearColorMap()
 	AGraph::colorMap.clear();
 }
 
+SDL_Texture *AGraph::loadImage( std::string path, Uint8 r, Uint8 g, Uint8 b )
+{
+	SDL_Surface *surface = IMG_Load( path.c_str() );
+	if( surface == nullptr )
+		return nullptr;
+
+	Uint32 colorkey = SDL_MapRGB(surface->format, r, g, b );
+	SDL_SetColorKey( surface, SDL_TRUE, colorkey );
+
+	SDL_Texture *texture = nullptr;
+	texture = SDL_CreateTextureFromSurface( AGraph::renderer, surface );
+	SDL_FreeSurface( surface );
+
+	return texture;
+}
+
 SDL_Texture *AGraph::loadImage( std::string path )
 {
-	SDL_Texture *texture = nullptr;
-	texture = IMG_LoadTexture( AGraph::renderer, path.c_str() );
-	
-	return texture;
+	return IMG_LoadTexture( AGraph::renderer, path.c_str() );
+}
+
+SDL_Texture *AGraph::loadImage( std::string path, SDL_Color &color )
+{
+	return loadImage( path, color.r, color.g, color.b );
 }
 
 bool AGraph::loadImage( std::string name, std::string path )
@@ -74,6 +92,29 @@ bool AGraph::loadImage( std::string name, std::string path )
 			loaded = false;
 	}
 	return loaded;
+}
+
+bool AGraph::loadImage( std::string name, std::string path, Uint8 r, Uint8 g, Uint8 b )
+{
+	bool loaded = true;
+	if( AGraph::textureMap[ name ] == nullptr )
+	{
+		AGraph::textureMap[ name ] = AGraph::loadImage( path, r, g, b );
+		if( AGraph::textureMap[ name ] == nullptr )
+			loaded = false;
+	}
+	return loaded;
+}
+
+bool AGraph::loadImage( std::string name, std::string path, std::string color )
+{
+	SDL_Color tempColor = AGraph::getColor( color );
+	return AGraph::loadImage( name, path, tempColor );
+}
+
+bool AGraph::loadImage( std::string name, std::string path, SDL_Color &color )
+{
+	return AGraph::loadImage( name, path, color.r, color.g, color.b );
 }
 
 void AGraph::render( SDL_Texture *texture, int x, int y, SDL_Rect *clip, const double angle, const SDL_Point *centerRotate )

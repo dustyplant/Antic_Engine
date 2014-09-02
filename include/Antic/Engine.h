@@ -10,7 +10,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-
+#include <cstdio>
+#include <ctime>
+#include <chrono>
+#include <thread>
 /**
  * @brief NameSpace of the Antic_Engine
  */
@@ -40,7 +43,7 @@ namespace antic
 		 * @param height The height of the window.
 		 * @return True if everything went fine, false if not.
 		 */
-		virtual bool init( std::string title, int width, int height );
+		virtual bool init( std::string title, int width, int height, int fps = -1 );
 
 		/**
 		 * @brief Updates the engine.
@@ -75,6 +78,12 @@ namespace antic
 		void setStateManager( StateManager* );
 
 		/**
+		 * @brief Set max fps.
+		 * @param fps This is the fps to set the max to.
+		 */
+		void setFPS( int fps );
+
+		/**
 		 * You can pass SDL events here.
 		 */
 		SDL_Event event;
@@ -84,6 +93,21 @@ namespace antic
 		 * The StateManager that the engine will be updating and rendering.
 		 */
 		StateManager* sm;
+
+		/**
+		 * This is to calculate the delta time.
+		 */
+		std::chrono::time_point<std::chrono::system_clock> lastFrame;
+
+		/**
+		 * This determines the frames per second. -1 means that there will be no limit.
+		 */
+		int fps;
+
+		/**
+		 * This is to keep track of how long a frame is.
+		 */
+		double frameTime;
 	};
 }
 

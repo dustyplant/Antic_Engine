@@ -10,7 +10,7 @@ bool antic::StateManager::init()
 	return true;
 }
 
-void antic::StateManager::update()
+void antic::StateManager::update( float dt )
 {
 	// Passing events from the observer event heap to the subject event heap.
 	while( antic::Observer::getNumEvents() > 0 )
@@ -21,7 +21,7 @@ void antic::StateManager::update()
 
 	// Updates the active GameState object.
 	if( stateStack.empty() == false )
-		stateStack.top()->update();
+		stateStack.top()->update(dt);
 }
 
 void antic::StateManager::render()

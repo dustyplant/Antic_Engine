@@ -18,10 +18,10 @@ void antic::GameState::close()
 	entityManager = nullptr;
 }
 
-void antic::GameState::update()
+void antic::GameState::update( float dt )
 {
 	if( entityManager != nullptr )
-		entityManager->update();
+		entityManager->update(dt);
 }
 
 void antic::GameState::render()

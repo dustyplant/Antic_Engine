@@ -11,7 +11,7 @@ bool antic::Entity::init()
 	return true;
 }
 
-void antic::Entity::update()
+void antic::Entity::update( float dt )
 {
 
 }
@@ -19,6 +19,12 @@ void antic::Entity::update()
 void antic::Entity::render()
 {
 
+}
+
+void antic::Entity::kill()
+{
+	if( this->em != nullptr )
+		this->em->removeEntity( getID() );
 }
 
 unsigned int antic::Entity::getID()

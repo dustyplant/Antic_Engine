@@ -14,7 +14,7 @@ namespace antic
 		virtual ~StateManager();
 
 		virtual bool init();
-		virtual void update();
+		virtual void update( float dt );
 		virtual void render();
 
 		// Pushes the new state onto the stack, making it the active state, and 

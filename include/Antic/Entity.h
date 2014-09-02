@@ -11,8 +11,10 @@ namespace antic
 	public:
 		virtual ~Entity();
 		virtual bool init();
-		virtual void update();
+		virtual void update( float dt );
 		virtual void render();
+
+		virtual void kill();
 
 		unsigned int getID();
 		void setID( unsigned int newID );
@@ -20,7 +22,7 @@ namespace antic
 		void setEntityManager( EntityManager * );
 		EntityManager *getEntityManager();
 
-	private:
+	protected:
 		unsigned int id = 0;
 		EntityManager *em = nullptr;
 	};

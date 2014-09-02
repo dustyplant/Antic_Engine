@@ -11,14 +11,15 @@ include_directories( ${CMAKE_SOURCE_DIR}/include )
 #add_subdirectory( ${CMAKE_SOURCE_DIR}/src )
 
 add_library( Antic_Engine STATIC 
-	src/Engine.cpp
-	src/StateManager.cpp
-	src/GameState.cpp
-	src/Antic_Graph.cpp
-	src/RenderQueue.cpp
-	src/EntityManager.cpp
-	src/Entity.cpp
-	src/EventSystem.cpp
+	${CMAKE_SOURCE_DIR}/src/Engine.cpp
+	${CMAKE_SOURCE_DIR}/src/StateManager.cpp
+	${CMAKE_SOURCE_DIR}/src/GameState.cpp
+	${CMAKE_SOURCE_DIR}/src/Antic_Graph.cpp
+	${CMAKE_SOURCE_DIR}/src/RenderQueue.cpp
+	${CMAKE_SOURCE_DIR}/src/EntityManager.cpp
+	${CMAKE_SOURCE_DIR}/src/Entity.cpp
+	${CMAKE_SOURCE_DIR}/src/EventSystem.cpp
+	${CMAKE_SOURCE_DIR}/src/EMGrid.cpp
 )
 
 if( WIN32 )

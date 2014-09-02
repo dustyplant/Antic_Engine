@@ -1,4 +1,10 @@
 #include <Antic/EntityManager.h>
+#include <iostream>
+
+antic::EntityManager::EntityManager()
+{
+	currIDs = 0;
+}
 
 antic::EntityManager::~EntityManager()
 {
@@ -16,7 +22,7 @@ bool antic::EntityManager::init()
 	return true;
 }
 
-void antic::EntityManager::update()
+void antic::EntityManager::update( float dt )
 {
 	for( auto iter : deletedEntities )
 		removeEntityNow( iter );
@@ -24,7 +30,7 @@ void antic::EntityManager::update()
 	deletedEntities.clear();
 
 	for( auto iter: entities )
-		iter.second->update();
+		iter.second->update(dt);
 }
 
 void antic::EntityManager::render()

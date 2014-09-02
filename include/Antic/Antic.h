@@ -21,6 +21,7 @@
 // Entity management system
 #include <Antic/EntityManager.h>
 #include <Antic/Entity.h>
+#include <Antic/EMGrid.h>
 
 // Events
 #include <Antic/EventSystem.h>

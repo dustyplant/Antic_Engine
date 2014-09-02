@@ -11,22 +11,25 @@ namespace antic
 	class EntityManager
 	{
 	public:
+		EntityManager();
 		virtual ~EntityManager();
 		virtual bool init();
-		virtual void update();
+		virtual void update( float dt );
 		virtual void render();
 
-		void addEntity( Entity* );
-		Entity* getEntity( unsigned int entityID );
-		bool hasEntity( unsigned int entityID );
-		void removeEntity( unsigned int entityID );
+		virtual void addEntity( Entity* );
+		virtual Entity* getEntity( unsigned int entityID );
+		virtual bool hasEntity( unsigned int entityID );
+		virtual void removeEntity( unsigned int entityID );
 
 		//void runFunc( Functor );
 
-	private:
+	protected:
 		void close();
 
 		std::map<unsigned int, Entity*> entities;
+		
+	private:
 		std::vector<unsigned int> deletedEntities;
 		void removeEntityNow( unsigned int entityID );
 
@@ -36,6 +39,7 @@ namespace antic
 		// IDs that were used, but have since been freed.
 		std::vector<unsigned int> freeIDs;
 
+		// Starts at 1, so there will never be an id of 0.
 		unsigned int getNewID();
 
 		RenderQueue *rq = nullptr;

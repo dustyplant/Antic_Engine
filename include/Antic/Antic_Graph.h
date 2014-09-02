@@ -31,7 +31,14 @@ namespace AGraph
 
 	// Loads textures from images.
 	SDL_Texture *loadImage( std::string path );
+	SDL_Texture *loadImage( std::string path, Uint8 r, Uint8 g, Uint8 b );
+	SDL_Texture *loadImage( std::string path, SDL_Color &color );
+
 	bool loadImage( std::string name, std::string path );
+	bool loadImage( std::string name, std::string path, Uint8 r, Uint8 g, Uint8 b );
+	bool loadImage( std::string name, std::string path, SDL_Color &color );
+	bool loadImage( std::string name, std::string path, std::string color );
+
 	SDL_Texture *getTexture( std::string name );
 
 	// Loads fonts.
@@ -46,7 +53,7 @@ namespace AGraph
 	bool loadWords( std::string name, std::string words, std::string fontName, SDL_Color color );
 	bool loadWords( std::string name, std::string words, TTF_Font* font, SDL_Color color );
 
-	bool loadColor( std::string name, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255, Uint8 a = 1 );
+	bool loadColor( std::string name, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255, Uint8 a = 0 );
 	bool loadColor( std::string name, SDL_Color newColor );
 
 	// These functions loads and stores colors. You can overwrite colors.

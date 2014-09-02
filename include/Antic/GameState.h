@@ -14,7 +14,7 @@ namespace antic
 		GameState();
 		virtual ~GameState();
 		virtual bool init() = 0;
-		virtual void update();
+		virtual void update( float dt );
 		virtual void render();
 
 		virtual void close();

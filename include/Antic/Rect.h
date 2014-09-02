@@ -10,6 +10,14 @@ namespace antic
 		float w;
 		float h;
 	};
+
+	struct Recti
+	{
+		int x;
+		int y;
+		int w;
+		int h;
+	};
 }
 
 #endif
