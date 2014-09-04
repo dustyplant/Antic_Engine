@@ -1,11 +1,29 @@
 #include <Antic/Engine.h>
 #include <Antic/SystemEvent.h>
-//#include <unistd.h>
 
 #include <iostream>
 #include <math.h>
 
+#ifdef _WIN32
+	#include <windows.h>
+#endif
+
+#ifdef LINUX
+	#include <unistd.h>
+#endif
+
 bool firstFrame = true;
+
+void SleepMilliseconds( int milliseconds )
+{
+	#ifdef _WIN32
+		Sleep( milliseconds );
+	#endif
+
+	#ifdef linux
+		usleep( milliseconds * 1000 );
+	#endif
+}
 
 antic::Engine::Engine()
 {
@@ -31,7 +49,7 @@ bool antic::Engine::init( std::string title, int width, int height, int fps )
 	if( AGraph::initAGraph( title, width, height ) == false )
 		return false;
 
-	lastFrame = std::chrono::high_resolution_clock::now();
+	lastFrame = 0;
 	setFPS( fps );
 	return true;
 }
@@ -40,24 +58,25 @@ void antic::Engine::update()
 {
 	// In case of the first frame.
 	if( firstFrame ){
-		lastFrame = std::chrono::high_resolution_clock::now();
+		lastFrame = clock();
 		firstFrame = false;
 	}
+
 	// Notify observers of events.
 	antic::Subject::notifyObservers();
 
-
 	// Calculate the delta time since the last frame and pass that to update.
-	std::chrono::duration<double> thisFrame = std::chrono::high_resolution_clock::now() - lastFrame;
+	double thisFrame = (clock() - lastFrame) / (double)CLOCKS_PER_SEC;
 	if( sm != nullptr )
-		sm->update( thisFrame.count() ); 
+		sm->update( thisFrame );
 
 	// Record time of the last frame ending.
-	lastFrame = std::chrono::high_resolution_clock::now();
+	lastFrame = clock();
 
 	// If going fast, will sleep until time for next frame.
-	if( thisFrame.count() < this->frameTime )
-		std::this_thread::sleep_for( std::chrono::milliseconds( (int)((this->frameTime - thisFrame.count()) * 1000) ) );
+	if( thisFrame < this->frameTime ){
+		SleepMilliseconds( (int)((frameTime - thisFrame)*1000) );		
+	}
 }
 
 void antic::Engine::gameLoop()

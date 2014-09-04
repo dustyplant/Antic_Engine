@@ -171,7 +171,6 @@ void antic::GridEntity::move( int x, int y, bool overwrite, bool clearPrevious )
 				this->gld.y = y;
 			}
 		}
-		tempGrid->printGrid();
 	}
 }
 

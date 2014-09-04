@@ -11,9 +11,13 @@
 #include <stdlib.h>
 #include <string>
 #include <cstdio>
+/*
 #include <ctime>
 #include <chrono>
 #include <thread>
+*/
+#include <time.h>
+
 /**
  * @brief NameSpace of the Antic_Engine
  */
@@ -97,7 +101,8 @@ namespace antic
 		/**
 		 * This is to calculate the delta time.
 		 */
-		std::chrono::time_point<std::chrono::system_clock> lastFrame;
+		//std::chrono::time_point<std::chrono::system_clock> lastFrame;
+		clock_t lastFrame;
 
 		/**
 		 * This determines the frames per second. -1 means that there will be no limit.

@@ -22,9 +22,13 @@ namespace AGraph
 	static std::map< std::string, TTF_Font* > fontMap;
 	static std::map< std::string, SDL_Color > colorMap;
 
+	// Initializes Antic_Graph.
 	bool initAGraph( std::string title = "", int width = 640, int height = 480 );
+
+	// Cleans up Antic_Graph. Call this once you know you are done using Antic_Graph.
 	void cleanup();
 
+	// Functions for freeing up memory.
 	void clearTextureMap();
 	void clearFontMap();
 	void clearColorMap();
