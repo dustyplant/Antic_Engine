@@ -2,8 +2,14 @@
 #define ANTIC_GRAPH_H
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+
+#ifdef __APPLE__
+    #include <SDL2_image/SDL_image.h>
+    #include <SDL2_ttf/SDL_ttf.h>
+#else
+    #include <SDL2/SDL_image.h>
+    #include <SDL2/SDL_ttf.h>
+#endif
 
 #include <map>
 #include <iostream>
