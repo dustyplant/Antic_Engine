@@ -1,0 +1,3 @@
+[submodule "submodules/Antic_Graph"]
+	path = submodules/Antic_Graph
+	url = https://github.com/shanesatterfield/Antic_Graph.git
