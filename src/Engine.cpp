@@ -42,12 +42,12 @@ void antic::Engine::close()
 		delete sm;
 	sm = nullptr;
 	
-	AGraph::cleanup();
+	agraph::cleanup();
 }
 
 bool antic::Engine::init( std::string title, int width, int height, int fps )
 {
-	if( AGraph::initAGraph( title, width, height ) == false )
+	if( agraph::initAGraph( title, width, height ) == false )
 		return false;
 
 	lastFrame = 0;
@@ -58,7 +58,8 @@ bool antic::Engine::init( std::string title, int width, int height, int fps )
 void antic::Engine::update()
 {
 	// In case of the first frame.
-	if( firstFrame ){
+	if( firstFrame )
+	{
 		lastFrame = clock();
 		firstFrame = false;
 	}
@@ -77,9 +78,8 @@ void antic::Engine::update()
 	lastFrame = clock();
 
 	// If going fast, will sleep until time for next frame.
-	if( thisFrame < this->frameTime ){
+	if( thisFrame < this->frameTime )
 		SleepMilliseconds( (int)((frameTime - thisFrame)*1000) );		
-	}
 }
 
 void antic::Engine::gameLoop()
@@ -108,13 +108,14 @@ void antic::Engine::render()
 	{
 		sm->render();
 	}
-	AGraph::renderDone();
+	agraph::renderDone();
 }
 
 void antic::Engine::setStateManager( StateManager* newSM )
 {
 	if( sm != nullptr )
 		delete sm;
+	
 	sm = newSM;
 	sm->setEngine( this );
 }

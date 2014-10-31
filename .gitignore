@@ -16,3 +16,11 @@ build/
 docs/
 BuildInstaller.sh
 BuildInstaller.bat
+
+# XCode 
+Antic_Engine.build/
+Antic_Engine.xcodeproj/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
