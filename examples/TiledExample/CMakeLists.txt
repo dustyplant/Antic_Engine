@@ -1,0 +1,11 @@
+cmake_minimum_required( VERSION 3.0 )
+project( TiledExample )
+
+configure_file( ${PROJECT_SOURCE_DIR}/res/Test1.tmx 		 		${PROJECT_BINARY_DIR}/res/Test1.tmx COPYONLY )
+configure_file( ${PROJECT_SOURCE_DIR}/res/twilight-tiles.png 		${PROJECT_BINARY_DIR}/res/twilight-tiles.png COPYONLY )
+configure_file( ${PROJECT_SOURCE_DIR}/res/parallaxBG-interior1.png  ${PROJECT_BINARY_DIR}/res/parallaxBG-interior1.png COPYONLY )
+
+include_directories( ${PROJECT_SOURCE_DIR}/include )
+
+add_executable( TiledExample ${PROJECT_SOURCE_DIR}/TiledExample.cpp )
+target_link_libraries( TiledExample Antic_Engine ${ANTIC_LIBRARIES} )

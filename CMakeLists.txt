@@ -6,9 +6,10 @@ add_compile_options( -g )
 
 set( ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_BINARY_DIR}/lib )
 
-add_subdirectory( submodules/Antic_Graph )
+add_subdirectory( submodules )
 
 include_directories( ${AGRAPH_INCLUDE_DIRS} )
+include_directories( ${PROJECT_SOURCE_DIR}/submodules/tmxparser/src )
 
 include_directories( ${PROJECT_SOURCE_DIR}/include )
 
@@ -21,10 +22,10 @@ add_library( Antic_Engine STATIC
 	${PROJECT_SOURCE_DIR}/src/Entity.cpp
 	${PROJECT_SOURCE_DIR}/src/EventSystem.cpp
 	${PROJECT_SOURCE_DIR}/src/EMGrid.cpp
+	${PROJECT_SOURCE_DIR}/src/TiledLevel.cpp
 )
 
-
-set( ANTIC_LIBRARIES ${ANTIC_LIBRARIES} ${AGRAPH_LIBRARIES} CACHE STRING "Antic_Engine link libraries" )
+set( ANTIC_LIBRARIES ${ANTIC_LIBRARIES} ${AGRAPH_LIBRARIES} tmxparser ${TINYXML_LIBRARIES} CACHE STRING "Antic_Engine link libraries" )
 target_link_libraries( Antic_Engine ${ANTIC_LIBRARIES})
 
-#add_subdirectory( examples )
+add_subdirectory( examples )
