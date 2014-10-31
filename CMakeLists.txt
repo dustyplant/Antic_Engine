@@ -9,7 +9,6 @@ set( ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_BINARY_DIR}/lib )
 add_subdirectory( submodules/Antic_Graph )
 
 include_directories( ${AGRAPH_INCLUDE_DIRS} )
-message( STATUS "Parent: " ${AGRAPH_INCLUDE_DIRS} )
 
 include_directories( ${CMAKE_SOURCE_DIR}/include )
 
