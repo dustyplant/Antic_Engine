@@ -55,6 +55,8 @@ namespace antic
 			removeObserver( observer, t );
 		};
 
+
+
 	private:
 		std::set< Observer* > observers;
 		std::map< std::type_index, std::set<Observer*> >obsMap;
@@ -65,6 +67,7 @@ namespace antic
 		friend class Observer;
 
 		void removeObserver( Observer *observer, std::set< Observer* > &someSet );
+
 	};
 
 
@@ -119,6 +122,11 @@ namespace antic
 		std::set< std::pair<Subject*, std::type_index > > logged;
 		std::set< Subject* > loggedToAll;
 	};
+
+
+
+	extern std::vector<Event*> eventsFired;
+	void clearEvents();
 }
 
 #endif

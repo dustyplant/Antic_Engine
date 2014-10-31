@@ -1,7 +1,10 @@
 #include <Antic/EventSystem.h>
 
 // Subject member functions
+std::vector<antic::Event*> antic::eventsFired;
+
 using namespace antic;
+
 
 static bool compare( Event *a, Event *b )
 {
@@ -107,8 +110,12 @@ void Subject::notifyObservers()
 			for( auto iter : obsMap[ t ] )
 			{
 				iter->notify( tempEvent );
+
 			}
 		}
+
+		// For deallocation.
+		eventsFired.push_back( tempEvent );
 	}
 }
 
@@ -255,4 +262,18 @@ bool Observer::isLogged( const std::type_index &t )
 			result = true;
 
 	return result;
+}
+
+
+
+
+
+void antic::clearEvents()
+{
+	std::sort( eventsFired.begin(), eventsFired.end() );
+	eventsFired.erase( std::unique(eventsFired.begin(), eventsFired.end()), eventsFired.end() );
+	for( int i = 0; i < eventsFired.size(); ++i )
+		delete eventsFired[i];
+
+	eventsFired.clear();
 }

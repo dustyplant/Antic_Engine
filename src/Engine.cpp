@@ -1,5 +1,6 @@
 #include <Antic/Engine.h>
 #include <Antic/SystemEvent.h>
+#include <Antic/EventSystem.h>
 
 #include <iostream>
 #include <math.h>
@@ -69,6 +70,8 @@ void antic::Engine::update()
 	double thisFrame = (clock() - lastFrame) / (double)CLOCKS_PER_SEC;
 	if( sm != nullptr )
 		sm->update( thisFrame );
+
+	antic::clearEvents();
 
 	// Record time of the last frame ending.
 	lastFrame = clock();
