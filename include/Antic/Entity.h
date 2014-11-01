@@ -2,10 +2,14 @@
 #define ENTITY_H
 
 #include <Antic/Drawable.h>
+#include <vector>
+
+using std::vector;
 
 namespace antic
 {
 	class EntityManager;
+	class Component;
 	class Entity : public Drawable
 	{
 	public:
@@ -22,9 +26,15 @@ namespace antic
 		void setEntityManager( EntityManager * );
 		EntityManager *getEntityManager();
 
+		Component* getComponent(int id);
+
+		float x,y;
 	protected:
 		unsigned int id = 0;
 		EntityManager *em = nullptr;
+
+
+		vector<Component*> components;
 	};
 }
 

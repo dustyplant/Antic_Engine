@@ -23,6 +23,8 @@ add_library( Antic_Engine STATIC
 	${PROJECT_SOURCE_DIR}/src/EventSystem.cpp
 	${PROJECT_SOURCE_DIR}/src/EMGrid.cpp
 	${PROJECT_SOURCE_DIR}/src/TiledLevel.cpp
+	#${PROJECT_SOURCE_DIR}/src/Component.cpp
+	${PROJECT_SOURCE_DIR}/src/ComponentPhysics.cpp
 )
 
 set( ANTIC_LIBRARIES ${ANTIC_LIBRARIES} ${AGRAPH_LIBRARIES} tmxparser ${TINYXML_LIBRARIES} CACHE STRING "Antic_Engine link libraries" )
