@@ -2,6 +2,8 @@
 #include <Antic/SystemEvent.h>
 #include <Antic/EventSystem.h>
 
+#include <Antic/Physics.h>
+
 #include <iostream>
 #include <math.h>
 
@@ -42,13 +44,23 @@ void antic::Engine::close()
 		delete sm;
 	sm = nullptr;
 	
+	if( world != nullptr )
+	{
+		delete world;
+		world = nullptr;
+	}
+
 	agraph::cleanup();
 }
 
-bool antic::Engine::init( std::string title, int width, int height, int fps )
+bool antic::Engine::init( std::string title, int width, int height, int fps, b2Vec2 gravity )
 {
+	close();
+	
 	if( agraph::initAGraph( title, width, height ) == false )
 		return false;
+
+	world = new b2World( gravity );
 
 	lastFrame = 0;
 	setFPS( fps );
@@ -69,6 +81,8 @@ void antic::Engine::update()
 
 	// Calculate the delta time since the last frame and pass that to update.
 	double thisFrame = (clock() - lastFrame) / (double)CLOCKS_PER_SEC;
+
+	antic::world->Step( thisFrame, 8, 3 );
 	if( sm != nullptr )
 		sm->update( thisFrame );
 
@@ -99,6 +113,7 @@ void antic::Engine::gameLoop()
 		}
 		update();
 		render();
+
 	}
 }
 
@@ -118,6 +133,11 @@ void antic::Engine::setStateManager( StateManager* newSM )
 	
 	sm = newSM;
 	sm->setEngine( this );
+}
+
+antic::StateManager* antic::Engine::getStateManager()
+{
+	return this->sm;
 }
 
 void antic::Engine::setFPS( int fps )

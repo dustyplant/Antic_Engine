@@ -3,17 +3,18 @@
 
 #include <SDL2/SDL.h>
 #include <Antic/EntityManager.h>
+#include <Antic/EventSystem.h>
 
 namespace antic
 {
 	class StateManager;
-	class GameState
+	class GameState: public Subject, public Observer
 	{
 	public:
 		/// Cleans everything up. Also calls close(), so you don't have to worry about it.
 		GameState();
 		virtual ~GameState();
-		virtual bool init() = 0;
+		virtual bool init();
 		virtual void update( float dt );
 		virtual void render();
 

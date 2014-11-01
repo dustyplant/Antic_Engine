@@ -1,4 +1,5 @@
 #include <Antic/GameState.h>
+#include <Antic/SystemEvent.h>
 
 antic::GameState::GameState()
 {
@@ -18,8 +19,18 @@ void antic::GameState::close()
 	entityManager = nullptr;
 }
 
+bool antic::GameState::init()
+{
+	return true;
+}
+
 void antic::GameState::update( float dt )
 {
+	while( antic::Observer::getNumEvents() > 0 )
+		antic::Subject::push_event( antic::Observer::pop_event() );
+
+	antic::Subject::notifyObservers();
+
 	if( entityManager != nullptr )
 		entityManager->update(dt);
 }
@@ -36,5 +47,11 @@ antic::StateManager *antic::GameState::getStateManager()
 }
 void antic::GameState::setStateManager( antic::StateManager *newStateManager )
 {
+	/*
+	if( sm != nullptr )
+		//antic::Observer::removeSubject<antic::SystemEvent>( sm );
+		sm->removeObserver< antic::SystemEvent >( this );
+	*/
 	sm = newStateManager;
+	//this->addToLog<antic::SystemEvent>( sm );
 }

@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string>
 #include <cstdio>
+
+#include <Antic/Physics.h>
 /*
 #include <ctime>
 #include <chrono>
@@ -47,7 +49,7 @@ namespace antic
 		 * @param height The height of the window.
 		 * @return True if everything went fine, false if not.
 		 */
-		virtual bool init( std::string title, int width, int height, int fps = -1 );
+		virtual bool init( std::string title, int width, int height, int fps = -1, b2Vec2 gravity = b2Vec2(0.f, 20.f) );
 
 		/**
 		 * @brief Updates the engine.
@@ -80,6 +82,8 @@ namespace antic
 		 * @param r A pointer to the StateManager object that you are passing in. It will be destroyed by the engine.
 		 */
 		void setStateManager( StateManager* );
+
+		StateManager* getStateManager();
 
 		/**
 		 * @brief Set max fps.
