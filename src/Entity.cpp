@@ -2,6 +2,8 @@
 #include <Antic/EntityManager.h>
 #include <Antic/Component.h>
 
+#include <iostream>
+
 antic::Entity::~Entity()
 {
 	for(auto it = components.begin(); it != components.end(); ++it) {
@@ -19,6 +21,8 @@ void antic::Entity::update( float dt )
 	for(auto it = components.begin(); it != components.end(); ++it) {
 		(*it)->update(dt,this);
 	}
+
+	//std::cout << "X: " << x << " Y: " << y << '\n';
 }
 
 void antic::Entity::render()
@@ -62,4 +66,9 @@ antic::Component *antic::Entity::getComponent(int id)
 		}
 	}
 	return nullptr;
+}
+
+void antic::Entity::addComponent(Component *component) 
+{
+	components.push_back(component);
 }

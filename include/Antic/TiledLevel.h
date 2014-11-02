@@ -30,6 +30,9 @@ namespace antic
 		virtual void render();
 		virtual void close();
 
+		
+		int getTile(int x, int y, int layer_i);
+
 	protected:
 		std::vector< agraph::SpriteSheet* > tilesets;
 		Tmx::Map* level = nullptr;

@@ -27,6 +27,7 @@ namespace antic
 		EntityManager *getEntityManager();
 
 		Component* getComponent(int id);
+		void addComponent(Component *component);
 
 		float x,y;
 	protected:

@@ -5,6 +5,21 @@ antic::TiledLevel::~TiledLevel()
 	close();
 }
 
+int antic::TiledLevel::getTile(int x, int y, int layer_i) {
+	
+	level->GetErrorText();
+	if( layer_i < level->GetNumTilesets() && layer_i > 0) {
+		const Tmx::Layer* layer = level->GetLayer( layer_i );
+		if(x < layer->GetWidth() && y < layer->GetHeight()) {
+			return layer->GetTile( x, y ).id;
+		} else {
+			return -1;
+		}
+	} else {
+		return -1;
+	}
+}
+
 bool antic::TiledLevel::init( std::string tmxFilePath )
 {
 	close();

@@ -9,7 +9,7 @@ namespace antic
 	{
 	public:
 		virtual void update(float dt, Entity *me) = 0;
-		virtual ~Component();
+		virtual ~Component() = 0;
 
 	protected:
 		int id;
