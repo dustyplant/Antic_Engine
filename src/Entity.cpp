@@ -1,5 +1,6 @@
 #include <Antic/Entity.h>
 #include <Antic/EntityManager.h>
+#include <Antic/Antic_Graph.h>
 
 antic::Entity::~Entity()
 {
@@ -87,7 +88,11 @@ void antic::DEntity::render()
 	{
 		b2Vec2 center = fixture->GetAABB( 0 ).GetCenter();
 		b2Vec2 extents = fixture->GetAABB( 0 ).GetExtents();
-		tex->render( center.x - extents.x, center.y - extents.y );
+		agraph::pushMatrix();
+			agraph::translate( center.x, center.y );
+			agraph::rotate2D( this->body->GetAngle() );
+			tex->render();
+		agraph::popMatrix();
 
 		//fixture->GetNext();
 	}

@@ -39,6 +39,7 @@ bool antic::TiledLevel::init( std::string tmxFilePath )
 				tileset->GetMargin(),
 				tileset->GetMargin()
 			);
+
 			agraph::SpriteSheetFactory::addSS( name, ssf );
 		}
 
@@ -90,13 +91,15 @@ void antic::TiledLevel::render()
 {
 	int tileWidth  = level->GetTileWidth();
 	int tileHeight = level->GetTileHeight();
+	GLfloat w2 = tileWidth/2.f;
+	GLfloat h2 = tileHeight/2.f;
 
 	for( int i = 0; i < layers.size(); ++i )
 	{
 		for( int j = 0; j < layers[i].tiles.size(); ++j )
 		{
 			antic::Tile &tile = layers[i].tiles[j];
-			tile.ss->render( tile.gid, tile.x * tileWidth, tile.y * tileHeight );
+			tile.ss->render( tile.gid, tile.x * tileWidth + w2, tile.y * tileHeight + h2 );
 		}
 	}
 }

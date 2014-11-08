@@ -7,6 +7,8 @@ configure_file( ${PROJECT_SOURCE_DIR}/res/parallaxBG-interior1.png  ${PROJECT_BI
 configure_file( ${PROJECT_SOURCE_DIR}/res/exterior-parallaxBG1.png  ${PROJECT_BINARY_DIR}/res/exterior-parallaxBG1.png 	COPYONLY )
 configure_file( ${PROJECT_SOURCE_DIR}/res/elisa-spritesheet1.png  	${PROJECT_BINARY_DIR}/res/elisa-spritesheet1.png 	COPYONLY )
 configure_file( ${PROJECT_SOURCE_DIR}/elisa.json					${PROJECT_BINARY_DIR}/elisa.json					COPYONLY )
+configure_file( ${PROJECT_SOURCE_DIR}/res/aldis.json				${PROJECT_BINARY_DIR}/res/aldis.json				COPYONLY )
+configure_file( ${PROJECT_SOURCE_DIR}/res/aldis.png					${PROJECT_BINARY_DIR}/res/aldis.png					COPYONLY )
 
 include_directories( ${PROJECT_SOURCE_DIR}/include )
 

@@ -35,5 +35,7 @@ b2Body* antic::createBodyDynamic( float x, float y, float w, float h, float dens
 
 	body->CreateFixture( &fixtureDef );
 
+	body->SetFixedRotation( true );
+
 	return body;
 }

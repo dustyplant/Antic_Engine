@@ -29,8 +29,8 @@ public:
 
 	virtual bool init()
 	{
-		currIndex = 0;
 		currState = RUNNING;
+		currIndex = states[ currState ].start;
 		ss = agraph::SpriteSheetFactory::loadSS("elisa.json");
 		if( ss == nullptr )
 		{
@@ -44,7 +44,8 @@ public:
 			return false;
 		}
 
-		setBody( antic::createBodyDynamic( 600, 20, 56, 56, 0.1f, 0.3f ) );
+		setBody( antic::createBodyDynamic( 600, 100, 56, 56, 1.f, 0.3f ) );
+		
 		if( body == nullptr )
 		{
 			printf("Elisa body NULL\n");
@@ -56,6 +57,7 @@ public:
 
 	virtual void update( float dt )
 	{
+		
 		while( antic::Observer::getNumEvents() > 0 )
 		{
 			antic::Event *currEvent = antic::Observer::pop_event();
@@ -108,7 +110,12 @@ public:
 		{
 			b2Vec2 center = fixture->GetAABB( 0 ).GetCenter();
 			b2Vec2 extents = fixture->GetAABB( 0 ).GetExtents();
-			ss->render( currIndex, center.x - extents.x, center.y - extents.y );
+			
+			agraph::pushMatrix();
+				agraph::translate( center.x, center.y );
+				agraph::rotate2D(  this->body->GetAngle() );
+				ss->render( currIndex );
+			agraph::popMatrix();
 		}
 	}
 
@@ -116,15 +123,15 @@ protected:
 	agraph::SpriteSheet* ss;
 	std::map< AnimStates, AnimState > states;
 	int currIndex = 0;
-	AnimStates currState = RUNNING;
-	int vel = 1000;
+	AnimStates currState = IDLE;
+	int vel = 1000000;
 };
 
 
 int main( int argc, char* argv[] )
 {
 	antic::Engine engine;
-	if( engine.init("TiledExample", 1024, 768, 20, b2Vec2( 0, 16 * 20 ) ) == false )
+	if( engine.init("TiledExample", 1024, 768, 60, b2Vec2( 0, 16 * 20 ) ) == false )
 		exit( EXIT_FAILURE );
 
 	antic::TiledLevel level;
@@ -139,7 +146,7 @@ int main( int argc, char* argv[] )
 		exit( EXIT_FAILURE );
 	}
 
-	entity->setBody( antic::createBodyDynamic( 200, 20, entity->getTexture()->getWidth(), entity->getTexture()->getHeight(), 1.0f, 0.3f ) );
+	entity->setBody( antic::createBodyDynamic( 200, 20, entity->getTexture()->getWidth(), entity->getTexture()->getHeight(), 10.0f, 0.3f ) );
 
 	Elisa* elisa = new Elisa;
 	if( elisa->init() == false ){
@@ -158,10 +165,6 @@ int main( int argc, char* argv[] )
 	sm->addToLog( &engine );
 
 	sm->pushState( gs );
-
-
-
-
 
 	engine.setStateManager( sm );
 

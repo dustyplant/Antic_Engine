@@ -9,10 +9,12 @@
 
 #ifdef _WIN32
 	#include <windows.h>
+#else
+	#include <unistd.h>
+
 #endif
 
 #ifdef LINUX
-	#include <unistd.h>
 #endif
 
 bool firstFrame = true;
@@ -21,11 +23,12 @@ void SleepMilliseconds( int milliseconds )
 {
 	#ifdef _WIN32
 		Sleep( milliseconds );
-	#endif
-
-	#ifdef linux
+	#else
 		usleep( milliseconds * 1000 );
 	#endif
+
+	//#ifdef linux
+	//#endif
 }
 
 antic::Engine::Engine()
@@ -93,7 +96,8 @@ void antic::Engine::update()
 
 	// If going fast, will sleep until time for next frame.
 	if( thisFrame < this->frameTime )
-		SleepMilliseconds( (int)((frameTime - thisFrame)*1000) );		
+		SleepMilliseconds( (int)((frameTime - thisFrame)*1000) );
+		//SleepMilliseconds( 1000 );
 }
 
 void antic::Engine::gameLoop()
