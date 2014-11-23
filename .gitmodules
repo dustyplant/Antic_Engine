@@ -3,4 +3,4 @@
 	url = https://github.com/shanesatterfield/Antic_Graph.git
 [submodule "submodules/tmxparser"]
 	path = submodules/tmxparser
-	url = https://github.com/andrewrk/tmxparser.git
+	url = https://github.com/shanesatterfield/tmxparser.git
