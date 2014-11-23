@@ -14,7 +14,7 @@ Simple, custom game engine using SDL2 and OpenGL 2.1.
 
 ## Cloning the Repository
 
-This repository uses submodules and as such, you should run the command
+This repository uses submodules and as such you should run the following command when cloning the repository.
 ```
 git clone  --recursive https://github.com/shanesatterfield/Antic_Engine
 ```

@@ -1,4 +1,5 @@
 #include <Antic/TiledLevel.h>
+#include <Antic/Physics.h>
 
 antic::TiledLevel::~TiledLevel()
 {
@@ -75,6 +76,26 @@ bool antic::TiledLevel::init( std::string tmxFilePath )
 		}
 
 		layers.push_back( newLayer );
+	}
+
+	for( int i = 0; i < level->GetNumObjectGroups(); ++i )
+	{
+		const Tmx::ObjectGroup* objectGroup = level->GetObjectGroup( i );
+		for( int j = 0; j < objectGroup->GetNumObjects(); ++j )
+		{
+			const Tmx::Object* tmxObj = objectGroup->GetObject( j );
+			/*
+			b2BodyDef groundBodyDef;
+			groundBodyDef.position.Set( tmxObj->GetX() + tmxObj->GetWidth()/2.f, tmxObj->GetY() + tmxObj->GetHeight()/2.f );
+			
+			b2PolygonShape groundBox;
+			groundBox.SetAsBox( tmxObj->GetWidth()/2.f, tmxObj->GetHeight()/2.f );
+
+			b2Body* groundBody = antic::world->CreateBody( &groundBodyDef );
+			groundBody->CreateFixture( &groundBox, 0.0f );
+			*/
+			antic::createBodyStatic( tmxObj->GetX(), tmxObj->GetY(), tmxObj->GetWidth(), tmxObj->GetHeight() );
+		}
 	}
 
 	return true;
