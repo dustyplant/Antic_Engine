@@ -61,6 +61,7 @@ public:
 		while( antic::Observer::getNumEvents() > 0 )
 		{
 			antic::Event *currEvent = antic::Observer::pop_event();
+			/*
 			if( antic::SystemEvent *tempEvent = dynamic_cast<antic::SystemEvent*>( currEvent ) )
 			{
 				if( tempEvent->event.type == SDL_KEYDOWN )
@@ -95,6 +96,7 @@ public:
 					}
 				}
 			}
+			*/
 		}
 
 		currIndex += 1;
@@ -168,6 +170,7 @@ int main( int argc, char* argv[] )
 
 	engine.setStateManager( sm );
 
+	/*
 	bool quit = false;
 	while( quit == false )
 	{
@@ -180,7 +183,10 @@ int main( int argc, char* argv[] )
 			sysEvent->event = engine.event;
 			engine.push_event( sysEvent );
 		}
-
+	*/
+	while( glfwWindowShouldClose( agraph::window ) == false )
+	{
+		glfwPollEvents();
 		engine.update();
 		
 		level.render();

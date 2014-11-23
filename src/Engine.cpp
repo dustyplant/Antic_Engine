@@ -102,9 +102,9 @@ void antic::Engine::update()
 
 void antic::Engine::gameLoop()
 {
-	bool quit = false;
-	while( quit == false )
+	while( glfwWindowShouldClose( agraph::window ) == false )
 	{
+		/*
 		while( SDL_PollEvent( &this->event ) )
 		{
 			SystemEvent *sysEvent = new SystemEvent;
@@ -115,6 +115,8 @@ void antic::Engine::gameLoop()
 			if( this->event.type == SDL_QUIT )
 				quit = true;
 		}
+		*/
+		glfwPollEvents();
 		update();
 		render();
 

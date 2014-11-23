@@ -7,7 +7,7 @@ namespace antic
 	{
 	public:
 		virtual ~SystemEvent(){};
-		SDL_Event event;
+		//SDL_Event event;
 	};
 }
 

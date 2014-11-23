@@ -94,7 +94,7 @@ namespace antic
 		/**
 		 * You can pass SDL events here.
 		 */
-		SDL_Event event;
+		//SDL_Event event;
 	private:
 
 		/**

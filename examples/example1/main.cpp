@@ -7,13 +7,9 @@ int main( int argc, char* argv[] )
 	if( engine.init("Example 1", 1024, 768, 60) == false )
 		exit( EXIT_FAILURE );
 
-	bool quit = false;
-	while( quit == false )
+	while( glfwWindowShouldClose( agraph::window ) == false )
 	{
-		while( SDL_PollEvent( &engine.event ) )
-			if( engine.event.type == SDL_QUIT )
-				quit = true;
-
+		glfwPollEvents();
 		agraph::renderDone();
 	}
 
