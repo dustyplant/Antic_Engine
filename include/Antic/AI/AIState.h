@@ -17,6 +17,7 @@ namespace antic
 	{
 	public:
 		AIState(int defaultState = -1);
+		virtual ~AIState();
 		virtual void update(float dt, Entity *me);
 		bool isDone() const;
 		virtual void reset();

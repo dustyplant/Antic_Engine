@@ -14,6 +14,7 @@ namespace antic
 	{
 	public:
 		Transition();
+		virtual ~Transition();
 		virtual bool test(float dt, Entity *me, AIState *state) = 0;
 		virtual void reset();
 		int next;

@@ -30,6 +30,7 @@ bool antic::TiledLevel::init( std::string tmxFilePath )
 	if( level->HasError() )
 	{
 		printf("tmxparser Error %d: %s\n", level->GetErrorCode(), level->GetErrorText().c_str());
+		printf("Path: %s\n", tmxFilePath.c_str());
 		close();
 		return false;
 	}

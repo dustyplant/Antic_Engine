@@ -6,6 +6,11 @@ antic::Transition::Transition()
 	next = -1;
 }
 
+antic::Transition::~Transition()
+{
+	
+}
+
 void antic::Transition::reset()
 {
 

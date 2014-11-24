@@ -10,6 +10,17 @@ antic::AIState::AIState(int defaultState)
 	this->done = false;
 }
 
+antic::AIState::~AIState()
+{
+	for(auto s : states) {
+		delete s;
+	}
+
+	for(auto t : transitions) {
+		delete t;
+	}
+}
+
 void antic::AIState::update(float dt, Entity *me)
 {
 	//std::cout << name << std::endl;
