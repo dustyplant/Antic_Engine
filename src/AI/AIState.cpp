@@ -42,7 +42,7 @@ void antic::AIState::update(float dt, Entity *me)
 			} else {
 				//move to next substate
 				currentState = t->next;
-				states[currentState]->reset();
+				states[currentState]->reset(me);
 			}
 			break;
 		}
@@ -54,7 +54,7 @@ bool antic::AIState::isDone() const
 	return done;
 }
 
-void antic::AIState::reset()
+void antic::AIState::reset(Entity *me)
 {
 	//set to default substate
 	currentState = defaultState;
@@ -63,7 +63,7 @@ void antic::AIState::reset()
 	//TODO: possibly reset only active substate
 	//reset all substates
 	for(auto s : states) {
-		s->reset();
+		s->reset(me);
 	}
 
 	//reset all transitions
@@ -83,6 +83,29 @@ void antic::AIStatePace::update(float dt, Entity *me)
 	if(p->collision && p->dx == 0) {
 		dx = -dx;
 		p->dx = dx;
+	}
+	AIState::update(dt, me);
+}
+
+void antic::AIStatePace::reset(Entity *me)
+{
+	ComponentPhysics *p = static_cast<ComponentPhysics*>(me->getComponent(1));
+		p->dx = dx;
+	AIState::reset(me);
+}
+
+antic::AIStateJump::AIStateJump(float dy)
+{
+	this->dy = dy;
+}
+
+void antic::AIStateJump::update(float dt, Entity *me)
+{
+	if(done) return;
+	ComponentPhysics *p = static_cast<ComponentPhysics*>(me->getComponent(1));
+	if(p->collision && p->dy == 0) {
+		p->dy = dy;
+		done = true;
 	}
 	AIState::update(dt, me);
 }
