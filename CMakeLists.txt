@@ -3,6 +3,7 @@ project( Antic_Engine )
 
 add_compile_options( --std=c++11 )
 add_compile_options( -g )
+add_compile_options( -O2 )
 
 set( CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 set( ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} ${CMAKE_BINARY_DIR}/lib )

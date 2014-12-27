@@ -3,6 +3,7 @@
 
 void antic::EntityBox::render()
 {
+
 	int c = 1;
 	ComponentPhysics *p = static_cast<ComponentPhysics*> (getComponent(1));
 	if(p != nullptr) {
@@ -10,5 +11,6 @@ void antic::EntityBox::render()
 			c = 2;
 		}
 	}
+	c = player;
 	r.render(x,y,c);
 }

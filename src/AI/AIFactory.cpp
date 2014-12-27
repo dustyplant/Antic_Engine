@@ -26,7 +26,7 @@ antic::ComponentAI* antic::AIFactory::createGruntAI(Entity *player)
 
 	follow->currentState = 0;
 	follow->defaultState = 0;
-	AIState *jump = new AIStateJump(-128);
+	AIState *jump = new AIStateJump(-254);
 	Transition *jumpDone = new TransitionSubstateDone();
 	jumpDone->next = 0;
 	follow->transitions.push_back(jumpDone);

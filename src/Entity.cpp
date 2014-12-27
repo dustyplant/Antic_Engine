@@ -21,6 +21,9 @@ void antic::Entity::update( float dt )
 	for(auto it = components.begin(); it != components.end(); ++it) {
 		(*it)->update(dt,this);
 	}
+	if(y > 600){
+		kill();
+	}
 
 	//std::cout << "X: " << x << " Y: " << y << '\n';
 }

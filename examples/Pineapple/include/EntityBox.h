@@ -9,6 +9,7 @@ namespace antic
 	class EntityBox : public Entity
 	{
 	public:
+		int player = 0;
 		virtual void render();
 	protected:
 		Rectangle r;
