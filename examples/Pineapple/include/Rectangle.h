@@ -31,7 +31,7 @@ namespace antic
 		static void init();
 		static void cleanup();
 
-		void render(float x1=0, float y1=0, int c=0);
+		void render(float x1=0, float y1=0, float r=1, float g=1, float b=1);
 	};
 
 	

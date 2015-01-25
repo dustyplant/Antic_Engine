@@ -9,9 +9,12 @@ namespace antic
 	class EntityBox : public Entity
 	{
 	public:
-		virtual void render();
+		EntityBox();
+		virtual void update( float dt) override;
+		virtual void render() override;
+		float r,g,b;
 	protected:
-		Rectangle r;
+		Rectangle rect;
 	};
 }
 

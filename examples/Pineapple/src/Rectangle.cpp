@@ -32,55 +32,23 @@ void antic::Rectangle::init()
 	agraph::loadIdentity();
 }
 
-void antic::Rectangle::render(float x1, float y1, int c)
+void antic::Rectangle::render(float x1, float y1, float r, float g, float b)
 {
 	//change color
-	if(c == 1) {
-		colorDataR[0] = 0.f;
-		colorDataR[3] = 0.f;
-		colorDataR[6] = 0.f;
-		colorDataR[9] = 0.f;
+	colorDataR[0] = r;
+	colorDataR[3] = r;
+	colorDataR[6] = r;
+	colorDataR[9] = r;
 
-		colorDataR[0+1] = 1.f;
-		colorDataR[3+1] = 1.f;
-		colorDataR[6+1] = 1.f;
-		colorDataR[9+1] = 1.f;
+	colorDataR[0+1] = g;
+	colorDataR[3+1] = g;
+	colorDataR[6+1] = g;
+	colorDataR[9+1] = g;
 
-		colorDataR[0+2] = 0.f;
-		colorDataR[3+2] = 0.f;
-		colorDataR[6+2] = 0.f;
-		colorDataR[9+2] = 0.f;
-	} else if(c == 2) {
-		colorDataR[0] = 1.f;
-		colorDataR[3] = 1.f;
-		colorDataR[6] = 1.f;
-		colorDataR[9] = 1.f;
-
-		colorDataR[0+1] = 0.f;
-		colorDataR[3+1] = 0.f;
-		colorDataR[6+1] = 0.f;
-		colorDataR[9+1] = 0.f;
-
-		colorDataR[0+2] = 0.f;
-		colorDataR[3+2] = 0.f;
-		colorDataR[6+2] = 0.f;
-		colorDataR[9+2] = 0.f;
-	} else {
-		colorDataR[0] = 1.f;
-		colorDataR[3] = 1.f;
-		colorDataR[6] = 1.f;
-		colorDataR[9] = 1.f;
-
-		colorDataR[0+1] = 0.25f;
-		colorDataR[3+1] = 0.25f;
-		colorDataR[6+1] = 0.25f;
-		colorDataR[9+1] = 0.25f;
-
-		colorDataR[0+2] = 1.f;
-		colorDataR[3+2] = 1.f;
-		colorDataR[6+2] = 1.f;
-		colorDataR[9+2] = 1.f;
-	}
+	colorDataR[0+2] = b;
+	colorDataR[3+2] = b;
+	colorDataR[6+2] = b;
+	colorDataR[9+2] = b;
 	// Loads the shader.
 	glUseProgram( programID );
 	glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
