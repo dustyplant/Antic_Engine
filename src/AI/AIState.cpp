@@ -91,6 +91,9 @@ void antic::AIStatePace::update(float dt, Entity *me)
 		dx = -dx;
 		p->dx = dx;
 	}
+	if(fabs(fabs(p->dx)-fabs(dx)) > 1) {
+		p->dx = dx * (p->dx > 0 ? 1 : -1);
+	}
 	AIState::update(dt, me);
 }
 
