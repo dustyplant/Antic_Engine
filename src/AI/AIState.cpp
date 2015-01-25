@@ -72,6 +72,13 @@ void antic::AIState::reset()
 	}
 }
 
+string antic::AIState::getName() {
+	string returnString = name;
+	if(done || currentState == -1) return name;
+	return returnString.append(string(":").append(states[currentState]->getName()));
+
+}
+
 antic::AIStatePace::AIStatePace(float dx)
 {
 	this->dx = dx;

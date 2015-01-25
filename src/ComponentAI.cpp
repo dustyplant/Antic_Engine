@@ -19,3 +19,11 @@ void antic::ComponentAI::update(float dt, Entity *me)
 		state->update(dt, me);
 	}
 }
+
+string antic::ComponentAI::getStateName() const{
+	if(state != nullptr) {
+		return state->getName();
+	} else {
+		return "";
+	}
+}

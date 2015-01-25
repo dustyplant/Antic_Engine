@@ -14,6 +14,7 @@ namespace antic
 		ComponentAI();
 		virtual void update(float dt, Entity *me);
 		virtual ~ComponentAI();
+		string getStateName() const;
 
 	protected:
 		AIState *state;

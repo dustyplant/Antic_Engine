@@ -21,6 +21,8 @@ namespace antic
 		virtual void update(float dt, Entity *me);
 		bool isDone() const;
 		virtual void reset();
+		//returns the name of this state and active substates
+		string getName();
 
 		string name;
 
