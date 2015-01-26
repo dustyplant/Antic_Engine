@@ -21,6 +21,7 @@ antic::DemoState::~DemoState()
 
 void antic::DemoState::update(float dt) 
 {
+	/*
 	for(int i=0; i<20; i++)
 	{
 		EntityBox *enemy = new EntityBox();
@@ -36,6 +37,7 @@ void antic::DemoState::update(float dt)
 		enemy->y = 128+64+16;
 		entityManager->addEntity(enemy);
 	}
+	*/
 	GameState::update(dt);
 }
 
@@ -95,6 +97,7 @@ bool antic::DemoState::load(char* path)
 		entityManager->addEntity(enemy);
 	}
 
+	
 	for(int i=0; i<20; i++)
 	{
 		EntityBox *enemy = new EntityBox();
@@ -110,5 +113,6 @@ bool antic::DemoState::load(char* path)
 		enemy->y = 128+64+16;
 		entityManager->addEntity(enemy);
 	}
+
 	return true;
 }
