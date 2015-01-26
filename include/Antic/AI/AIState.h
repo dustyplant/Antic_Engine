@@ -20,7 +20,7 @@ namespace antic
 		virtual ~AIState();
 		virtual void update(float dt, Entity *me);
 		bool isDone() const;
-		virtual void reset();
+		virtual void reset(Entity *me);
 		//returns the name of this state and active substates
 		string getName();
 
@@ -40,10 +40,22 @@ namespace antic
 	public:
 		AIStatePace(float dx);
 		virtual void update(float dt, Entity *me) override;
+		virtual void reset(Entity *me);
 		
 	protected:
 		//TODO: move this info somewhere else
 		float dx;
+	};
+
+	class AIStateJump : public AIState
+	{
+	public:
+		AIStateJump(float dy);
+		virtual void update(float dt, Entity *me) override;
+		
+	protected:
+		//TODO: move this info somewhere else
+		float dy;
 	};
 
 	class AIStateFollow : public AIState

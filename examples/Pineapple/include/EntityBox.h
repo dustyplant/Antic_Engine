@@ -13,6 +13,7 @@ namespace antic
 		virtual void update( float dt) override;
 		virtual void render() override;
 		float r,g,b;
+		int player = 0;
 	protected:
 		Rectangle rect;
 	};

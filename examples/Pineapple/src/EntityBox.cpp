@@ -23,7 +23,7 @@ void antic::EntityBox::update( float dt) {
 			g=0;
 			b=1;
 		} else {
-			std::cout << ai->getStateName() << '\n';;
+			std::cout << ai->getStateName() << '\n';
 		}
 		
 	}

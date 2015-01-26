@@ -74,6 +74,7 @@ void antic::EntityManager::removeEntityNow( unsigned int entityID )
 {
 	if( hasEntity( entityID ) )
 	{
+		std::cout << "Deleting " << entityID << '\n';
 		delete entities[ entityID ];
 		entities.erase( entityID );
 

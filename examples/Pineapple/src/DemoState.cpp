@@ -21,7 +21,21 @@ antic::DemoState::~DemoState()
 
 void antic::DemoState::update(float dt) 
 {
+	for(int i=0; i<20; i++)
+	{
+		EntityBox *enemy = new EntityBox();
+		ComponentPhysics *physics = new ComponentPhysics();
+		physics->init(level);
+		physics->setGravity(256);
+		enemy->addComponent(physics);
 
+		ComponentAI *ai = AIFactory::createGruntAI(player);
+		enemy->addComponent(ai);
+
+		enemy->x = 512-32+i*16;
+		enemy->y = 128+64+16;
+		entityManager->addEntity(enemy);
+	}
 	GameState::update(dt);
 }
 
@@ -51,6 +65,7 @@ bool antic::DemoState::load(char* path)
 	level->init(path);
 	{
 		player = new EntityBox();
+		((EntityBox*)player)->player = 1;
 		ComponentPlayerInput *input = new ComponentPlayerInput();
 		ComponentPhysics *physics = new ComponentPhysics();
 		physics->init(level);
@@ -62,6 +77,7 @@ bool antic::DemoState::load(char* path)
 		player->x = 128;
 		player->y = 128+32;
 		entityManager->addEntity(player);
+		std::cout << "Player id: " << player->getID() << std::endl;
 	}
 
 	{
@@ -76,6 +92,22 @@ bool antic::DemoState::load(char* path)
 
 		enemy->x = 256+64;
 		enemy->y = 512-16;
+		entityManager->addEntity(enemy);
+	}
+
+	for(int i=0; i<20; i++)
+	{
+		EntityBox *enemy = new EntityBox();
+		ComponentPhysics *physics = new ComponentPhysics();
+		physics->init(level);
+		physics->setGravity(256);
+		enemy->addComponent(physics);
+
+		ComponentAI *ai = AIFactory::createGruntAI(player);
+		enemy->addComponent(ai);
+
+		enemy->x = 512-32 + i*16;
+		enemy->y = 128+64+16;
 		entityManager->addEntity(enemy);
 	}
 	return true;
