@@ -13,17 +13,16 @@ void antic::EntityBox::update( float dt) {
 	ComponentAI *ai = static_cast<ComponentAI*>(this->getComponent(3));
 	if(ai != nullptr) {
 		
-		if(ai->getStateName() == "main:follow") {
+		if(ai->getStateName() == "main:follow:jump") {
 			r=1;
 			g=0;
 			b=1;
-		} else
-		if(ai->getStateName() == "main:pace") {
+		} else if(ai->getStateName() == "main:pace") {
 			r=0;
 			g=0;
 			b=1;
 		} else {
-			std::cout << ai->getStateName() << '\n';
+			//std::cout << ai->getStateName() << '\n';
 		}
 		
 	}
